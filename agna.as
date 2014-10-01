@@ -5,58 +5,175 @@
 //
 // To add a custom transition, add it to the animate() function
 //
-// self {
-//     float x
-//     float y
-//     float scale_x
-//     float scale_y
-//     float transition_speed
-//     int debug
-//     string color
-//     string text_previous
-//     string text_current
-//     obj ic {
-//         int animated = 0
+// The structure of an agna object looks something like:
+// 
+// agna { [what the 'self' variable refers to]
+//     textField "debug_info_txt" [displays the debug information]
+//     movieClip "inner_container" { [what the 'ic' variable refers to]
+//         movieClip "text_frame", movieClip "text_frame_alt" { [there's two so that one can display the previous text in some transitions]
+//             textField "output" [where the text is displayed]
+//         }
+//         movieClip "debug_mask" [shown when the display mode has 'mask' enabled]
 //     }
+//     movieClip "debug_position" [shown when the display mode has 'position' enabled]
 // }
 
 class agna {
-	public var use_animation;
-	public var self;
-	public var ic;
+	//      A       111
+	//     A A     1111
+	//    AAAAA      11
+	//   A     A     11
+	//  A       A  111111
+	//
+	// Area 1:
+	// You're allowed to mess with this stuff
+	// Just be smart about it
 	
-	public function addAgna() {
-		_root.design._visible = false;
+	public function animate() {// Is called on each frame after an animation starts
+		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+		
+		switch (use_animation) {
+			case 'tnet_instant' : // [Agna:Instant]
+				animation_instant();
+				break;
+			case 'tnet_fade' : // [Agna:Fade]
+				animation_fade();
+				break;
+			case 'tnet_scroll' : // [Agna:Scroll]
+				animation_scroll();
+				break;
+			case 'tnet_flip' : // [Agna:Flip]
+				animation_flip();
+				break;
+			case 'tnet_announce' : // [Agna:Announcement]
+				animation_announcement();
+				break;
+			default :
+				animation_instant();
+				break;
+		}
+		
+		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
 	}
 
-	public function startAnimate() {
+	public function addAgna() {// Triggers when an object is added
+		_root.design._visible = false; // Just a sample built in overlay, change 'false' to 'true' to display it
+	}
+
+	public function startAnimate() { // Is triggered at the start of an animation
 		ic.animating = 0;
 	}
 
-	public function animate() {
-		// trace('Tick');
-		
-		// Add/Edit animations here
-		// Add them in order
-		switch (use_animation) {
-			case 1 :// [Agna:Fade]
-				animation_fade();
+	private function stopAnimation() { // Stops the animation
+		ic.animating = 0;
+		delete ic.onEnterFrame;
+		return true;
+	}
+	
+	public function init(to_init) { // Is triggered on first appearance of object
+		switch (to_init) {
+			case 'to' :
 				break;
-			case 2 :// [Agna:Scroll]
-				animation_scroll();
+			case 'ev' : // An example of attaching an image some text
+				var abg:MovieClip = ic.createEmptyMovieClip("test", 0);
+				abg.loadMovie("images/abg.png");
+				abg._x = -300;
+				abg._y = -25;
 				break;
-			case 3 :// [Agna:Flip]
-				animation_flip();
-				break;
-			case 4 :// [Agna:Announcement]
-				animation_announcement();
-				break;
-			default :// [Agna:Instant], you might not want to rename this
-				animation_instant();
+			default :
 				break;
 		}
 	}
 
+	//      A       2222
+	//     A A     22  22
+	//    AAAAA       22
+	//   A     A     22
+	//  A       A  222222
+	//
+	// Area 2:
+	// This is for variables that make your life easier
+	
+	private function getVar(var_name) {
+		switch (var_name) {
+			case 'x' :/* Data type fixes */
+			case 'y' :
+			case 'scale_x' :
+			case 'scale_y' :
+			case 'transition_speed' :
+				return parseFloat(self.vars[var_name]);
+				break;
+			case 'transition' :
+			case 'debug' :
+			case 'ruler_width' :
+			case 'mask_tl_x' :
+			case 'mask_tl_y' :
+			case 'mask_tr_x' :
+			case 'mask_tr_y' :
+			case 'mask_bl_x' :
+			case 'mask_bl_y' :
+			case 'mask_br_x' :
+			case 'mask_br_y' :
+				return parseInt(self.vars[var_name]);
+				break;
+			case 'current' :
+			case 'text' :
+				return (self.text_current);
+				break;
+			case 'prev' :
+			case 'previous' :
+				return (self.text_previous);
+				break;
+
+			case 'pos_x' :/* Redirects */
+			case '_x' :
+				return (self.vars['x']);
+				break;
+			case 'pos_y' :
+			case '_y' :
+				return (self.vars['y']);
+				break;
+			case 'xscale' :
+			case '_xscale' :
+				return (self.vars['scale_x']);
+				break;
+			case 'yscale' :
+			case '_yscale' :
+				return (self.vars['scale_y']);
+				break;
+			case 't_s' :
+				return (self.vars['transition_speed']);
+				break;
+
+			default :
+				return self.vars[var_name];
+				break;
+		}
+	}
+
+	private function changeText(to_text) {
+		ic.text_frame.output.text = to_text;
+	}
+
+	private function changeAlt(to_text) {
+		ic.text_frame_alt.output.text = to_text;
+	}
+
+	//      A       3333
+	//     A A     33  33
+	//    AAAAA       33
+	//   A     A   33  33
+	//  A       A   3333
+	//
+	// Area 3:
+	// Don't mess with these, if you do the entire thing breaks
+	
+	public var use_animation;
+	public var self;
+	public var ic;
+	
 	public function setObject(set_self, set_ic) {
 		self = set_self;
 		ic = set_ic;
@@ -66,151 +183,155 @@ class agna {
 		use_animation = to_set;
 	}
 
-	public function init(to_init) {// On first appearance
-		switch (to_init) {
-			case 'to' :
-				break;
-			case 'ev' :
-				var abg:MovieClip = ic.createEmptyMovieClip("test", 0);
-				abg.loadMovie("abg.png");
-				abg._x = -300;
-				abg._y = -25;
-				break;
-			default :
-				break;
-		}
-	}
-
 	public function animation_fade() {
-		if (ic.animating == 0) {
-			ic.text_frame_alt.output.text = self.text_previous;
-			ic.text_frame_alt._alpha = 100;
+		switch (ic.animating) {
+			case 0 :
+				changeAlt(getVar('previous'));
+				ic.text_frame_alt._alpha = 100;
 
-			ic.text_frame.output.text = self.text_current;
-			ic.text_frame._alpha = 0;
-			ic.animating = 1;
-		} else if (ic.animating == 1) {
-			if (ic.text_frame._alpha >= 100) {
-				ic.animating = 0;
-				delete ic.onEnterFrame;
-				// trace('Done');
-				return true;
-			} else {
-				ic.text_frame_alt._alpha -= (10 * self.transition_speed);
-				ic.text_frame._alpha += (10 * self.transition_speed);
-			}
+				changeText(getVar('current'));
+				ic.text_frame._alpha = 0;
+				ic.animating = 1;
+				break;
+			case 1 :
+				if (ic.text_frame._alpha >= 100) {
+					stopAnimation();
+				} else {
+					ic.text_frame_alt._alpha -= (10 * getVar('t_s'));
+					ic.text_frame._alpha += (10 * getVar('t_s'));
+				}
+				break;
 		}
 	}
 
-	public function animation_scroll() {
-		if (ic.animating == 0) {
-			ic.text_frame_alt._alpha = 0;
+	//      A      44  44
+	//     A A     44  44
+	//    AAAAA    444444
+	//   A     A       44
+	//  A       A      44
+	//
+	// Area 4:
+	// I just put animations here
 
-			ic.animating = 1;
-			ic.increase = 0;
-			ic.text_frame._y = 0;
-			ic.animating = 1;
-		} else if (ic.animating == 1) {
-			if (ic.text_frame._y <= 22 * parseFloat(self.vars['scale_y'])) {
-				ic.increase += 0.5;
-				ic.text_frame._y += ((2 + ic.increase) * self.transition_speed);
-			} else {
-				ic.animating = 2;
-				ic.text_frame._y = -22 * parseFloat(self.vars['scale_y']);
-				ic.text_frame.output.text = self.text_current;
-			}
-		} else if (ic.animating == 2) {
-			if (ic.text_frame._y < 0) {
-				ic.increase -= 0.5;
-				ic.text_frame._y += ((2 + ic.increase) * self.transition_speed);
-			} else {
-				// When it's done
-				ic.text_frame._y = 0;
-				ic.animating = 0;
-				delete ic.onEnterFrame;
-				return true;
-			}
-		}
-	}
-	
+
 	public function animation_instant() {
 		ic.text_frame_alt._visible = false;
-		ic.text_frame.output.text = self.text_current;
+		ic.text_frame.output.text = getVar('current');
 		ic.animating = 0;
-		delete ic.onEnterFrame;
-		return true;
+		stopAnimation();
 	}
 	
-	public function animation_flip() {
-		if (ic.animating == 0) {
-			ic.increase = 0;
-			ic.text_frame._yscale = (self.vars['scale_y'] * 100);
-			ic.animating = 1;
-		} else if (ic.animating == 1) {
-			ic.increase += 0.5;
-			ic.text_frame._yscale -= (1 + ic.increase * self.transition_speed);
-			if (ic.text_frame._yscale <= 0) {
-				ic.text_frame.output.text = self.text_current;
-				ic.text_frame._yscale = 0;
-				ic.animating = 2;
-			}
-		} else if (ic.animating == 2) {
-			ic.text_frame._yscale += (1 + ic.increase * self.transition_speed);
-			if (ic.increase > 0) {
-				ic.increase -= 0.5;
-			}
-			if (ic.text_frame._yscale >= (self.vars['scale_y'] * 100)) {
-				ic.animating = 0;
-				ic.text_frame._yscale = (self.vars['scale_y'] * 100);
-				delete ic.onEnterFrame;
-				return true;
-			}
+	public function animation_scroll() {
+		switch (ic.animating) {
+			case 0 :
+				ic.text_frame_alt._alpha = 0;
+
+				ic.animating = 1;
+				ic.increase = 0;
+				ic.text_frame._y = 0;
+				ic.animating = 1;
+				break;
+			case 1 :
+				if (ic.text_frame._y <= 22 * getVar('yscale')) {
+					ic.increase += 0.5;
+					ic.text_frame._y += ((2 + ic.increase) * getVar('t_s'));
+				} else {
+					ic.animating = 2;
+					ic.text_frame._y = -22 * getVar('yscale');
+					ic.text_frame.output.text = getVar('current');
+				}
+				break;
+			case 2 :
+				if (ic.text_frame._y < 0) {
+					ic.increase -= 0.5;
+					ic.text_frame._y += ((2 + ic.increase) * getVar('t_s'));
+				} else {
+					// When it's done
+					ic.text_frame._y = 0;
+					stopAnimation();
+				}
+				break;
 		}
 	}
-	
+
+	public function animation_flip() {
+		switch (ic.animating) {
+			case 0 :
+				ic.increase = 0;
+				ic.text_frame._yscale = (self.vars['scale_y'] * 100);
+				ic.animating = 1;
+				break;
+			case 1 :
+				ic.increase += 0.5;
+				ic.text_frame._yscale -= (1 + ic.increase * getVar('t_s'));
+				if (ic.text_frame._yscale <= 0) {
+					ic.text_frame.output.text = getVar('current');
+					ic.text_frame._yscale = 0;
+					ic.animating = 2;
+				}
+				break;
+			case 2 :
+				ic.text_frame._yscale += (1 + ic.increase * self.transition_speed);
+				if (ic.increase > 0) {
+					ic.increase -= 0.5;
+				}
+				if (ic.text_frame._yscale >= (self.vars['scale_y'] * 100)) {
+					ic.animating = 0;
+					ic.text_frame._yscale = (self.vars['scale_y'] * 100);
+					stopAnimation();
+				}
+				break;
+		}
+	}
+
 	public function animation_announcement() {
-		ic.fps = 30;
-		
-		if (ic.animating == 0) {
-			ic.start_y = 0;
-			ic.text_frame.output.text = self.text_current;
-			ic.animating = 1;
-			ic.increase = 0;
-			
-			ic.runtime = 0;
-			ic.runtime_seconds = 0;
-		} else if (ic.animating == 1) {
-			ic.increase += 0.5;
-			ic._y -= (1 + ic.increase);
-			if (ic._y <= (ic.start_y - ic.text_frame._height - (ic.text_frame._height * 0.1))) {
-				ic._y = (ic.start_y - ic.text_frame._height);
-				ic.animating = 2;
-			}
-		} else if (ic.animating == 2) {
-			ic.runtime++;
-			if (ic.runtime >= ic.fps) {
-				ic.runtime_seconds++;
+		switch (ic.animating) {
+			case 0:
+				ic.fps = 30;
+				
+				ic.start_y = 0;
+				ic.text_frame.output.text = self.text_current;
+				ic.animating = 1;
+				ic.increase = 0;
+	
 				ic.runtime = 0;
-			}
-			if (ic.runtime_seconds >= parseInt(self.vars['transition_speed'])) {
-				ic.animating = 3;
-				ic.runtime = 0;
-			}
-			trace("(" + ic.runtime + "/" + ic.fps + ") -> (" + ic.runtime_seconds + "/" + parseInt(self.vars['transition_speed']) + ")");
-		} else if (ic.animating == 3) {
-			ic.runtime++;
-			ic._y -= (ic.text_frame._height * 0.1);
-			if (ic.runtime == 3) {
-				ic.animating = 4;
-			}
-		} else if (ic.animating == 4) {
-			ic._y += (1 + ic.increase);
-			if (ic._y >= ic.start_y) {
-				ic._y = ic.start_y;
-				ic.animating = 0;
-				delete ic.onEnterFrame;
-				return true;
-			}
+				ic.runtime_seconds = 0;
+				break;
+			case 1:
+				ic.increase += 0.5;
+				ic._y -= (1 + ic.increase);
+				if (ic._y <= (ic.start_y - ic.text_frame._height - (ic.text_frame._height * 0.1))) {
+					ic._y = (ic.start_y - ic.text_frame._height);
+					ic.animating = 2;
+				}
+				break;
+			case 2:
+				ic.runtime++;
+				if (ic.runtime >= ic.fps) {
+					ic.runtime_seconds++;
+					ic.runtime = 0;
+				}
+				if (ic.runtime_seconds >= parseInt(self.vars['transition_speed'])) {
+					ic.animating = 3;
+					ic.runtime = 0;
+				}
+				trace("(" + ic.runtime + "/" + ic.fps + ") -> (" + ic.runtime_seconds + "/" + parseInt(self.vars['transition_speed']) + ")");
+				break;
+			case 3:
+				ic.runtime++;
+				ic._y -= (ic.text_frame._height * 0.1);
+				if (ic.runtime == 3) {
+					ic.animating = 4;
+				}
+				break;
+			case 4:
+				ic._y += (1 + ic.increase);
+				if (ic._y >= ic.start_y) {
+					ic._y = ic.start_y;
+					ic.animating = 0;
+					stopAnimation();
+				}
+				break;
 		}
 	}
 }

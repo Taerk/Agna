@@ -29,7 +29,22 @@ class agna {
 	// You're allowed to mess with this stuff
 	// Just be smart about it
 	
+	
+	public function firstLoad() { // Triggers once, when agna is loaded
+		// Have an image of an overlay you want to edit? Put the filename here for it to show up!
+		_root.overlay.load_overlay.src = "sample_overlay.png";
+		_root.overlay.load_overlay.x = 0;
+		_root.overlay.load_overlay.y = 0;
+		
+		 // Just a sample built in overlay, change 'false' to 'true' to display it
+		_root.overlay.load_template = false;
+	}
+	
+	public function addAgna() { // Triggers when an object is added
+	}
+	
 	public function animate() {// Is called on each frame after an animation starts
+		// [Agna:Search:Start]
 		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
 		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
 		
@@ -56,10 +71,7 @@ class agna {
 		
 		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
 		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
-	}
-
-	public function addAgna() {// Triggers when an object is added
-		_root.design._visible = false; // Just a sample built in overlay, change 'false' to 'true' to display it
+		// [Agna:Search:End]
 	}
 
 	public function startAnimate() { // Is triggered at the start of an animation
@@ -76,7 +88,7 @@ class agna {
 		switch (to_init) {
 			case 'to' :
 				break;
-			case 'ev' : // An example of attaching an image some text
+			case 'an' : // An example of attaching an image some text
 				var abg:MovieClip = ic.createEmptyMovieClip("test", 0);
 				abg.loadMovie("images/abg.png");
 				abg._x = -300;
@@ -98,7 +110,7 @@ class agna {
 	
 	private function getVar(var_name) {
 		switch (var_name) {
-			case 'x' :/* Data type fixes */
+			case 'x' : /* Data type fixes */
 			case 'y' :
 			case 'scale_x' :
 			case 'scale_y' :
@@ -116,35 +128,42 @@ class agna {
 			case 'mask_bl_y' :
 			case 'mask_br_x' :
 			case 'mask_br_y' :
+			case 'rotation' :
+			case 'text_width' :
 				return parseInt(self.vars[var_name]);
 				break;
 			case 'current' :
 			case 'text' :
-				return (self.text_current);
+				return self.text_current;
 				break;
 			case 'prev' :
 			case 'previous' :
-				return (self.text_previous);
+				return self.text_previous;
 				break;
 
-			case 'pos_x' :/* Redirects */
+			/* Redirects */
+			case 'pos_x' :
 			case '_x' :
-				return (self.vars['x']);
+				return self.vars['x'];
 				break;
 			case 'pos_y' :
 			case '_y' :
-				return (self.vars['y']);
+				return self.vars['y'];
 				break;
 			case 'xscale' :
 			case '_xscale' :
-				return (self.vars['scale_x']);
+				return self.vars['scale_x'];
 				break;
 			case 'yscale' :
 			case '_yscale' :
-				return (self.vars['scale_y']);
+				return self.vars['scale_y'];
+				break;
+			case '_rotation' :
+			case '_r' :
+				return self.vars['rotation'];
 				break;
 			case 't_s' :
-				return (self.vars['transition_speed']);
+				return self.vars['transition_speed'];
 				break;
 
 			default :
@@ -154,11 +173,11 @@ class agna {
 	}
 
 	private function changeText(to_text) {
-		ic.text_frame.output.text = to_text;
+		ic.text_frame.output.htmlText = to_text;
 	}
 
 	private function changeAlt(to_text) {
-		ic.text_frame_alt.output.text = to_text;
+		ic.text_frame_alt.output.htmlText = to_text;
 	}
 
 	//      A       3333
@@ -181,27 +200,6 @@ class agna {
 
 	public function setAnimation(to_set) {
 		use_animation = to_set;
-	}
-
-	public function animation_fade() {
-		switch (ic.animating) {
-			case 0 :
-				changeAlt(getVar('previous'));
-				ic.text_frame_alt._alpha = 100;
-
-				changeText(getVar('current'));
-				ic.text_frame._alpha = 0;
-				ic.animating = 1;
-				break;
-			case 1 :
-				if (ic.text_frame._alpha >= 100) {
-					stopAnimation();
-				} else {
-					ic.text_frame_alt._alpha -= (10 * getVar('t_s'));
-					ic.text_frame._alpha += (10 * getVar('t_s'));
-				}
-				break;
-		}
 	}
 
 	//      A      44  44
@@ -254,6 +252,27 @@ class agna {
 		}
 	}
 
+	public function animation_fade() {
+		switch (ic.animating) {
+			case 0 :
+				changeAlt(getVar('previous'));
+				ic.text_frame_alt._alpha = 100;
+
+				changeText(getVar('current'));
+				ic.text_frame._alpha = 0;
+				ic.animating = 1;
+				break;
+			case 1 :
+				if (ic.text_frame._alpha >= 100) {
+					stopAnimation();
+				} else {
+					ic.text_frame_alt._alpha -= (10 * getVar('t_s'));
+					ic.text_frame._alpha += (10 * getVar('t_s'));
+				}
+				break;
+		}
+	}
+
 	public function animation_flip() {
 		switch (ic.animating) {
 			case 0 :
@@ -262,7 +281,7 @@ class agna {
 				ic.animating = 1;
 				break;
 			case 1 :
-				ic.increase += 0.5;
+				ic.increase += 5;
 				ic.text_frame._yscale -= (1 + ic.increase * getVar('t_s'));
 				if (ic.text_frame._yscale <= 0) {
 					ic.text_frame.output.text = getVar('current');
@@ -273,7 +292,7 @@ class agna {
 			case 2 :
 				ic.text_frame._yscale += (1 + ic.increase * self.transition_speed);
 				if (ic.increase > 0) {
-					ic.increase -= 0.5;
+					ic.increase -= 3;
 				}
 				if (ic.text_frame._yscale >= (self.vars['scale_y'] * 100)) {
 					ic.animating = 0;

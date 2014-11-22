@@ -10,6 +10,13 @@ Flash overlay for streams, mostly for XSplit
 4. Place 'agna.swf' file it creates into XSplit
 5. Go to Settings > Flash Settings (Ctrl+F) and set up your layout
 
+##Did you know?
+
+- You can click and drag a text field's content to swap it with another field?
+- If you put %p1% in a text field, it will replace that with Player 1's content. It works with other fields too! (Hover over a text field to get its "key")
+- If you open 'agna.swf' you can hold "G" and click with your mouse to get coordinates, this will help you lay out your text (tap "G" to get rid of it)
+- The above works even better when you load a sample of the overlay, so you can actually see what you're doing
+
 ##How To
 ####Load an Overlay
 **Difficulty: 1/5**

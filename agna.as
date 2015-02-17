@@ -1,67 +1,67 @@
-﻿// Agna AS File
-// Programmed by: Gabriel Nieves
-//
-// This is where the transition codes are kept
-//
-// To add a custom transition, add it to the animate() function
-//
-// The structure of an agna object looks something like:
-// 
-// agna { [what the 'self' variable refers to]
-//     textField "debug_info_txt" [displays the debug information]
-//     movieClip "inner_container" { [what the 'ic' variable refers to]
-//         movieClip "text_frame", movieClip "text_frame_alt" { [there's two so that one can display the previous text in some transitions]
-//             textField "output" [where the text is displayed]
-//         }
-//         movieClip "debug_mask" [shown when the display mode has 'mask' enabled]
-//     }
-//     movieClip "debug_position" [shown when the display mode has 'position' enabled]
-// }
+﻿' Agna AS File
+' Programmed by: Gabriel Nieves
+'
+' This is where the transition codes are kept
+'
+' To add a custom transition, add it to the animate() function
+'
+' The structure of an agna object looks something like:
+' 
+' agna { [what the 'self' variable refers to]
+'     textField "debug_info_txt" [displays the debug information]
+'     movieClip "inner_container" { [what the 'ic' variable refers to]
+'         movieClip "text_frame", movieClip "text_frame_alt" { [there's two so that one can display the previous text in some transitions]
+'             textField "output" [where the text is displayed]
+'         }
+'         movieClip "debug_mask" [shown when the display mode has 'mask' enabled]
+'     }
+'     movieClip "debug_position" [shown when the display mode has 'position' enabled]
+' }
 
 class agna {
-	//      A       111
-	//     A A     1111
-	//    AAAAA      11
-	//   A     A     11
-	//  A       A  111111
-	//
-	// Area 1:
-	// You're allowed to mess with this stuff
-	// Just be smart about it
+	'      A       111
+	'     A A     1111
+	'    AAAAA      11
+	'   A     A     11
+	'  A       A  111111
+	'
+	' Area 1:
+	' You're allowed to mess with this stuff
+	' Just be smart about it
 	
 	
-	public function firstLoad() { // Triggers once, when agna is loaded
-		// Have an image of an overlay you want to edit? Put the filename here for it to show up!
+	public function firstLoad() { ' Triggers once, when agna is loaded
+		' Have an image of an overlay you want to edit? Put the filename here for it to show up!
 		_root.overlay.load_overlay.src = "sample_overlay.png";
 		_root.overlay.load_overlay.x = 0;
 		_root.overlay.load_overlay.y = 0;
 		
-		 // Just a sample built in overlay, change 'false' to 'true' to display it
+		 ' Just a sample built in overlay, change 'false' to 'true' to display it
 		_root.overlay.load_template = false;
 	}
 	
-	public function addAgna() { // Triggers when an object is added
+	public function addAgna() { ' Triggers when an object is added
 	}
 	
-	public function animate() {// Is called on each frame after an animation starts
-		// [Agna:Search:Start]
-		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
-		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+	public function animate() {' Is called on each frame after an animation starts
+		' [Agna:Search:Start]
+		' ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+		' ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
 		
 		switch (use_animation) {
-			case 'tnet_instant' : // [Agna:Instant]
+			case 'tnet_instant' : ' [Agna:Instant]
 				animation_instant();
 				break;
-			case 'tnet_fade' : // [Agna:Fade]
+			case 'tnet_fade' : ' [Agna:Fade]
 				animation_fade();
 				break;
-			case 'tnet_scroll' : // [Agna:Scroll]
+			case 'tnet_scroll' : ' [Agna:Scroll]
 				animation_scroll();
 				break;
-			case 'tnet_flip' : // [Agna:Flip]
+			case 'tnet_flip' : ' [Agna:Flip]
 				animation_flip();
 				break;
-			case 'tnet_announce' : // [Agna:Announcement]
+			case 'tnet_announce' : ' [Agna:Announcement]
 				animation_announcement();
 				break;
 			default :
@@ -69,26 +69,26 @@ class agna {
 				break;
 		}
 		
-		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
-		// ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
-		// [Agna:Search:End]
+		' ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+		' ADD ANIMATIONS TO DISPLAY IN AGNAPANEL HERE
+		' [Agna:Search:End]
 	}
 
-	public function startAnimate() { // Is triggered at the start of an animation
+	public function startAnimate() { ' Is triggered at the start of an animation
 		ic.animating = 0;
 	}
 
-	private function stopAnimation() { // Stops the animation
+	private function stopAnimation() { ' Stops the animation
 		ic.animating = 0;
 		delete ic.onEnterFrame;
 		return true;
 	}
 	
-	public function init(to_init) { // Is triggered on first appearance of object
+	public function init(to_init) { ' Is triggered on first appearance of object
 		switch (to_init) {
 			case 'to' :
 				break;
-			case 'an' : // An example of attaching an image some text
+			case 'an' : ' An example of attaching an image some text
 				var abg:MovieClip = ic.createEmptyMovieClip("test", 0);
 				abg.loadMovie("images/abg.png");
 				abg._x = -300;
@@ -99,14 +99,14 @@ class agna {
 		}
 	}
 
-	//      A       2222
-	//     A A     22  22
-	//    AAAAA       22
-	//   A     A     22
-	//  A       A  222222
-	//
-	// Area 2:
-	// This is for variables that make your life easier
+	'      A       2222
+	'     A A     22  22
+	'    AAAAA       22
+	'   A     A     22
+	'  A       A  222222
+	'
+	' Area 2:
+	' This is for variables that make your life easier
 	
 	private function getVar(var_name) {
 		switch (var_name) {
@@ -180,14 +180,14 @@ class agna {
 		ic.text_frame_alt.output.htmlText = to_text;
 	}
 
-	//      A       3333
-	//     A A     33  33
-	//    AAAAA       33
-	//   A     A   33  33
-	//  A       A   3333
-	//
-	// Area 3:
-	// Don't mess with these, if you do the entire thing breaks
+	'      A       3333
+	'     A A     33  33
+	'    AAAAA       33
+	'   A     A   33  33
+	'  A       A   3333
+	'
+	' Area 3:
+	' Don't mess with these, if you do the entire thing breaks
 	
 	public var use_animation;
 	public var self;
@@ -202,14 +202,14 @@ class agna {
 		use_animation = to_set;
 	}
 
-	//      A      44  44
-	//     A A     44  44
-	//    AAAAA    444444
-	//   A     A       44
-	//  A       A      44
-	//
-	// Area 4:
-	// I just put animations here
+	'      A      44  44
+	'     A A     44  44
+	'    AAAAA    444444
+	'   A     A       44
+	'  A       A      44
+	'
+	' Area 4:
+	' I just put animations here
 
 
 	public function animation_instant() {
@@ -244,7 +244,7 @@ class agna {
 					ic.increase -= 0.5;
 					ic.text_frame._y += ((2 + ic.increase) * getVar('t_s'));
 				} else {
-					// When it's done
+					' When it's done
 					ic.text_frame._y = 0;
 					stopAnimation();
 				}

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<agna-panel>
+  <id>TXLYNXTL</id>
+  <fields>
+    <main>
+      <field name="to"></field>
+      <field name="ev"></field>
+      <field name="ma"></field>
+      <field name="co"></field>
+      <field name="an"></field>
+      <field name="mu"></field>
+      <field name="p1" color="0"></field>
+      <field name="p2" color="0"></field>
+      <field name="s1">0/2</field>
+      <field name="s2">0</field>
+      <field name="c1"></field>
+      <field name="c2"></field>
+      <c1 />
+      <c2 />
+    </main>
+    <custom sel1="t1" sel2="t2">
+      <field name="t1" long="Text #1" />
+      <field name="t2" long="Text #2" />
+    </custom>
+  </fields>
+  <characters>
+    <player-1>
+      <category>_None</category>
+      <selection>_None</selection>
+      <output>
+        <image name="_None">
+          <x>0</x>
+          <y>0</y>
+          <w>5</w>
+          <h>5</h>
+          <scale>1</scale>
+          <reverse>false</reverse>
+          <path>none.png</path>
+        </image>
+      </output>
+    </player-1>
+    <player-2>
+      <category>_None</category>
+      <selection>_None</selection>
+      <output>
+        <image name="_None">
+          <x>0</x>
+          <y>0</y>
+          <w>5</w>
+          <h>5</h>
+          <scale>1</scale>
+          <reverse>false</reverse>
+          <path>none.png</path>
+        </image>
+      </output>
+    </player-2>
+  </characters>
+  <output>
+    <to></to>
+    <ev></ev>
+    <ma></ma>
+    <co></co>
+    <an></an>
+    <mu></mu>
+    <p1></p1>
+    <p2></p2>
+    <s1>0/2</s1>
+    <s2>0</s2>
+    <c1></c1>
+    <c2></c2>
+    <t1 />
+    <t2 />
+  </output>
+  <agna>
+    <scene name="_default" inherit="_none">
+      <textbox enabled="true" name="to">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="ev">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="ma">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="co">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="an">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="mu">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="p1">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="p2">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="s1">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="s2">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="c1">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+      <textbox enabled="true" name="c2">
+        <text>
+          <font>Arial</font>
+          <size>12pt</size>
+          <align>center</align>
+          <color>#FFFFFF</color>
+          <stroke width="0">#FFFFFF</stroke>
+          <width>1000</width>
+        </text>
+        <pos>
+          <x>640.0</x>
+          <y>360.0</y>
+        </pos>
+      </textbox>
+    </scene>
+  </agna>
+</agna-panel>

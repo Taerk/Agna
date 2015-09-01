@@ -1,3 +1,10 @@
+/*
+*  Name: Smackdown
+*  Version: 1.1
+*  Updated: 9/1/2015
+*  Author: Taerk
+*/
+
 /* Design settings */
 design = {}
 

@@ -1,3 +1,10 @@
+/*
+*  Name: Camera
+*  Version: 1.0
+*  Updated: 9/1/2015
+*  Author: Taerk
+*/
+
 if (typeof camera_name == 'undefined') {
 	camera_name = "";
 }

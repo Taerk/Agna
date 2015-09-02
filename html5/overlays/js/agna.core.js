@@ -1,15 +1,17 @@
 /*
-
-   [][][]      [][][]    []      []    [][][]  
- []      []  []      []  [][]    []  []      []
- []      []  []          [] []   []  []      []
- [][][][][]  []    [][]  []  []  []  [][][][][]
- []      []  []      []  []   [] []  []      []
- []      []  []      []  []    [][]  []      []
- []      []    [][][]    []      []  []      []
-
-By Taerk - http://agnaControl.link/ - HTML5 Version 1.1
-
+* 
+*    [][][]      [][][]    []      []    [][][]  
+*  []      []  []      []  [][]    []  []      []
+*  []      []  []          [] []   []  []      []
+*  [][][][][]  []    [][]  []  []  []  [][][][][]
+*  []      []  []      []  []   [] []  []      []
+*  []      []  []      []  []    [][]  []      []
+*  []      []    [][][]    []      []  []      []
+* 
+*  Name: AgnaControl
+*  Version: 1.1.1
+*  Updated: 9/2/2015
+*  Author: Taerk
 */
 
 /* Creates Agna */
@@ -185,7 +187,7 @@ agnaControl.prototype.loadAgna = function() {
 				_parent.drawFrame();
 			}
 		}).always(function() {
-			this.loading = false;
+			_parent.loading = false;
 		});
 	}
 };

@@ -1,7 +1,7 @@
 /*
 *  Name: Smackdown
-*  Version: 1.1
-*  Updated: 9/1/2015
+*  Version: 1.1.1
+*  Updated: 9/2/2015
 *  Author: Taerk
 */
 
@@ -904,11 +904,11 @@ function drawCharacter(player) {
 		case 1:
 			// Player 1 Character
 			try {
-				ch = getImage(1);
-				if (base64_p1 == "" || base64_p1 != ch.base64) {
+				ch = agna.getImage(1);
+				if (agna.base64_p1 == "" || agna.base64_p1 != ch.base64) {
 					k1 = new Image();
 					k1.src = ch.base64;
-					base64_p1 = ch.base64;
+					agna.base64_p1 = ch.base64;
 				}
 				agna.ctx.drawImage(k1, ch.x, ch.y, ch.w * ch.s, ch.h * ch.s);
 			} catch(e) {
@@ -919,11 +919,11 @@ function drawCharacter(player) {
 			// Player 2 Character
 			// agna.ctx.scale(-1, 1);
 			try {
-				ch = getImage(2);
-				if (base64_p2 == "" || base64_p2 != ch.base64) {
+				ch = agna.getImage(2);
+				if (agna.base64_p2 == "" || agna.base64_p2 != ch.base64) {
 					k2 = new Image();
 					k2.src = ch.base64;
-					base64_p2 = ch.base64;
+					agna.base64_p2 = ch.base64;
 				}
 				agna.ctx.drawImage(k2, -design.stage_e + ch.x, ch.y, ch.w * ch.s, ch.h * ch.s);
 			} catch(e) {

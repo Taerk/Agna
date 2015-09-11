@@ -111,7 +111,7 @@ function agnaControl(input_canvas) {
 	this.content = {};
 	this.color_p1 = 0;
 	this.color_p2 = 0;
-	this.grid = true;
+	this.grid = false;
 }
 
 agnaControl.prototype.pad = function(string, amount, padstring, direction) {

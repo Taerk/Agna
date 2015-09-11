@@ -24,7 +24,7 @@ function agnaControl(input_canvas) {
 		return false;
 	}
 	
-	this.AGNA_OUTPUT = "html5_out.xml";
+	this.AGNA_OUTPUT = "agna-output.xml";
 	// Overlay resolution
 	this.OVERLAY_WIDTH 	= 1280;
 	this.OVERLAY_HEIGHT = 720;

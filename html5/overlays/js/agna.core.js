@@ -112,6 +112,7 @@ function agnaControl(input_canvas) {
 	this.color_p1 = 0;
 	this.color_p2 = 0;
 	this.grid = false;
+	this.frame = 0;
 }
 
 agnaControl.prototype.pad = function(string, amount, padstring, direction) {
@@ -193,7 +194,7 @@ agnaControl.prototype.loadAgna = function() {
 };
 
 agnaControl.prototype.getField = function(field, raw) {
-	if ((typeof raw != 'undefined') && (raw == true)) {
+	if (typeof raw != 'undefined' && raw == true) {
 		return $(this.content).find('agna-panel').find('fields').find('main').find('[name="'+field+'"]').text();
 	} else {
 		return $(this.content).find('output').find(field).text().toString();
@@ -235,7 +236,7 @@ agnaControl.prototype.getPlayerColor = function(player) {
 	if (typeof this.colors.player[parseInt(get_color)] != "undefined") {
 		return get_color;
 	} else {
-		return false;
+		return -1;
 	}
 	
 	return current_color;
@@ -265,7 +266,7 @@ agnaControl.prototype.drawFrame = function() {
 	this.color_p1 = this.getPlayerColor(1);
 	this.color_p2 = this.getPlayerColor(2);
 	
-	if ((!this.color_p1) || (!this.color_p1)) {
+	if (this.color_p1 == -1 || !this.color_p2 == -1) {
 		agna.ctx.font = "bold 3em monospace";
 		agna.ctx.fillStyle = 'red';
 		agna.ctx.strokeStyle = 'black';

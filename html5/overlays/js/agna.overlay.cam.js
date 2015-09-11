@@ -94,15 +94,11 @@ function drawBottomBar() {
 	
 	// Draw players
 	
-	var split_comm = (typeof comm_split != 'undefined') ? true : false;
-	var co_1 = (split_comm) ? agna.getField('co').split(comm_split)[0] : agna.getField('co');
-	var co_2 = (split_comm) ? agna.getField('co').split(comm_split)[1] : agna.getField('co');
-	
 	// Player 1	
 	agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	if (agna.getField('c1', true).indexOf("%p1%") > -1) {
+	if (agna.getField(field_left, true).indexOf("%p1%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	} else if (agna.getField('c1', true).indexOf("%p2%") > -1) {
+	} else if (agna.getField(field_left, true).indexOf("%p2%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
 	} else {
 		agna.ctx.fillStyle = agna.colors.color_1.color;
@@ -141,16 +137,12 @@ function drawBottomBar() {
 	agna.ctx.fillStyle = 'white';
 	agna.ctx.textAlign = 'center';
 	agna.ctx.font = "3em Motion Control";
-	if (split_comm) {
-		agna.ctx.fillText(co_1, ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
-	} else {
-		agna.ctx.fillText(agna.getField(field_left), ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
-	}
+	agna.ctx.fillText(agna.getField(field_left), ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
 	
 	// Player 2
-	if (agna.getField('c2', true).indexOf("%p1%") > -1) {
+	if (agna.getField(field_right, true).indexOf("%p1%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	} else if (agna.getField('c2', true).indexOf("%p2%") > -1) {
+	} else if (agna.getField(field_right, true).indexOf("%p2%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
 	} else {
 		agna.ctx.fillStyle = agna.colors.color_1.color;
@@ -188,11 +180,7 @@ function drawBottomBar() {
 	agna.ctx.fillStyle = 'white';
 	agna.ctx.textAlign = 'center';
 	agna.ctx.font = "3em Motion Control";
-	if (split_comm) {
-		agna.ctx.fillText(co_2, agna.ctx.width - ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
-	} else {
-		agna.ctx.fillText(agna.getField(field_right), agna.ctx.width - ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
-	}
+	agna.ctx.fillText(agna.getField(field_right), agna.ctx.width - ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
 }
 
 function drawOverlay() {

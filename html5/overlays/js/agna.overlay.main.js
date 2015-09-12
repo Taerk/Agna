@@ -1,7 +1,7 @@
 /*
 *  Name: Smackdown
-*  Version: 1.1.1
-*  Updated: 9/2/2015
+*  Version: 1.1.2
+*  Updated: 9/12/2015
 *  Author: Taerk
 */
 
@@ -65,13 +65,6 @@ function drawTop() {
 		agna.ctx.lineTo(design.stage_x + 78, 44);
 		agna.ctx.lineTo(design.stage_x + 105, 44);
 		agna.ctx.lineTo(design.stage_x + 110, 47);
-		if (design.topbar == 1 || design.topbar == 3) {
-			agna.ctx.lineTo(design.stage_c - 77, 47);
-			agna.ctx.lineTo(design.stage_c - 80, 67);
-			agna.ctx.lineTo(design.stage_c + 54, 67);
-			agna.ctx.lineTo(design.stage_c + 68, 54);
-			agna.ctx.lineTo(design.stage_c + 70, 47);
-		}
 		agna.ctx.lineTo(design.stage_e - 110, 47);
 		agna.ctx.lineTo(design.stage_e - 105, 44);
 		agna.ctx.lineTo(design.stage_e - 78, 44);
@@ -167,13 +160,6 @@ function drawTop() {
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design.stage_x + 40, 0);
 		agna.ctx.lineTo(design.stage_x + 80,45);
-		if (design.topbar == 1 || design.topbar == 3) {
-			agna.ctx.lineTo(design.stage_c - 83, 45);
-			agna.ctx.lineTo(design.stage_c - 86, 67);
-			agna.ctx.lineTo(design.stage_c + 62, 67);
-			agna.ctx.lineTo(design.stage_c + 76, 54);
-			agna.ctx.lineTo(design.stage_c + 78, 45);
-		}
 		agna.ctx.lineTo(design.stage_e - 80, 45);
 		agna.ctx.lineTo(design.stage_e - 40, 0);
 		agna.ctx.closePath();
@@ -205,53 +191,29 @@ function drawTop() {
 	switch (design.topbar) {
 		case 1: // CFL Smackdown
 		case 3: // CFL Smackdown (alt)
-			if (agna.getPlayerColor(1) > 0 && agna.getPlayerColor(2) > 0) {
-				agna.ctx.fillStyle = agna.colors.topbar.color;
-				agna.ctx.globalAlpha = agna.colors.topbar.alpha;
-				agna.ctx.beginPath();
-				agna.ctx.moveTo(design.stage_c - 71, 0);
-				agna.ctx.lineTo(design.stage_c - 76, 8);
-				agna.ctx.lineTo(design.stage_c - 83, 40);
-				agna.ctx.lineTo(design.stage_c + 80, 40);
-				agna.ctx.lineTo(design.stage_c + 85, 0);
-				agna.ctx.closePath();
-				// agna.ctx.fill();
-				
-				agna.ctx.fillStyle = '#333';
-				agna.ctx.globalAlpha = agna.colors.topbar.alpha;
-				agna.ctx.beginPath();
-				agna.ctx.moveTo(design.stage_c - 61, 0);
-				agna.ctx.lineTo(design.stage_c - 69, 12);
-				agna.ctx.lineTo(design.stage_c - 78, 63);
-				agna.ctx.lineTo(design.stage_c + 55, 63);
-				agna.ctx.lineTo(design.stage_c + 68, 50);
-				agna.ctx.lineTo(design.stage_c + 74, 0);
-				agna.ctx.closePath();
-				agna.ctx.fill();
-			} else {
-				agna.ctx.fillStyle = agna.colors.topbar.color;
-				agna.ctx.globalAlpha = agna.colors.topbar.alpha;
-				agna.ctx.beginPath();
-				agna.ctx.moveTo(design.stage_c - 61, 0);
-				agna.ctx.lineTo(design.stage_c - 69, 12);
-				agna.ctx.lineTo(design.stage_c - 78,63);
-				agna.ctx.lineTo(design.stage_c + 55, 63);
-				agna.ctx.lineTo(design.stage_c + 68, 50);
-				agna.ctx.lineTo(design.stage_c + 74, 0);
-				agna.ctx.closePath();
-				agna.ctx.fill();
-			}
-			
 			agna.ctx.globalAlpha = 1;
-			var cfl_logo = new Image();
-			if (agna.getPlayerColor(1) > 0 && agna.getPlayerColor(2) > 0) {
-				cfl_logo.src = "images/cfl-smackdown-werstle-slate.png";
-				// agna.ctx.drawImage(cfl_logo, design.stage_c - (150 / 2), 2, 150, 67);
-				agna.ctx.drawImage(cfl_logo, design.stage_c - (145 / 2), 2);
-			} else {
-				cfl_logo.src = "images/cfl-smackdown-werstle.png";
-				agna.ctx.drawImage(cfl_logo, design.stage_c - (145 / 2), 0, 145, 60);
-			}
+			agna.ctx.fillStyle = agna.colors.outline.color;
+			
+			var logo = new Image();
+			logo.src = "images/logos/cfl-smackdown-werstle/cfl-smash-melee-positive-white-188x55.png";
+			logo.scale = 1;
+			
+			var d = { // Logo dimensions
+				width: logo.width * logo.scale,
+				height: logo.height * logo.scale
+			};
+			
+			agna.ctx.beginPath();
+			agna.ctx.moveTo(design.stage_c - (d.width / 2) - 8, 0);
+			agna.ctx.lineTo(design.stage_c - (d.width / 2) - 8, d.height - (13 * logo.scale));
+			agna.ctx.lineTo(design.stage_c - (d.width / 2) + (16 * logo.scale), d.height + 5);
+			agna.ctx.lineTo(design.stage_c + (d.width / 2) + 4, d.height + 5);
+			agna.ctx.lineTo(design.stage_c + (d.width / 2) + 8, d.height);
+			agna.ctx.lineTo(design.stage_c + (d.width / 2) + 8, 0);
+			agna.ctx.closePath();
+			agna.ctx.fill();
+			
+			agna.ctx.drawImage(logo, design.stage_c - (d.width / 2), 2, d.width, d.height);
 			break;
 		default:
 			// Short tournament bar outline

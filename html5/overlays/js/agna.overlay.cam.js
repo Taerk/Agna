@@ -1,7 +1,7 @@
 /*
 *  Name: Camera
-*  Version: 1.0
-*  Updated: 9/1/2015
+*  Version: 1.1
+*  Updated: 9/12/2015
 *  Author: Taerk
 */
 

@@ -94,93 +94,97 @@ function drawBottomBar() {
 	
 	// Draw players
 	
-	// Player 1	
-	agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	if (agna.getField(field_left, true).indexOf("%p1%") > -1) {
+	// Player 1
+	if (agna.getField(field_left).trim() != "") {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	} else if (agna.getField(field_left, true).indexOf("%p2%") > -1) {
-		agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
-	} else {
-		agna.ctx.fillStyle = agna.colors.color_1.color;
+		if (agna.getField(field_left, true).indexOf("%p1%") > -1) {
+			agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+		} else if (agna.getField(field_left, true).indexOf("%p2%") > -1) {
+			agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+		} else {
+			agna.ctx.fillStyle = agna.colors.color_1.color;
+		}
+		agna.ctx.globalAlpha = 1;
+		agna.ctx.beginPath();
+		agna.ctx.moveTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 - 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
+		agna.ctx.lineTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
+		agna.ctx.closePath();
+		agna.ctx.fill();
+		
+		agna.ctx.globalCompositOperation = 'darken';
+		agna.ctx.fillStyle = 'black';
+		agna.ctx.globalAlpha = 0.4;
+		agna.ctx.beginPath();
+		agna.ctx.moveTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 - 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 - 81, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
+		agna.ctx.lineTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
+		agna.ctx.closePath();
+		agna.ctx.fill();
+		
+		agna.ctx.globalCompositOperation = 'source-over';
+		agna.ctx.fillStyle = agna.colors.color_2.color;
+		agna.ctx.globalAlpha = 1;
+		agna.ctx.beginPath();
+		agna.ctx.moveTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 - 60, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 - 95, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.lineTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.closePath();
+		agna.ctx.fill();
+		
+		agna.ctx.fillStyle = 'white';
+		agna.ctx.textAlign = 'center';
+		agna.ctx.font = "3em Motion Control";
+		agna.ctx.fillText(agna.getField(field_left), ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
 	}
-	agna.ctx.globalAlpha = 1;
-	agna.ctx.beginPath();
-	agna.ctx.moveTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 - 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
-	agna.ctx.lineTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
-	agna.ctx.closePath();
-	agna.ctx.fill();
-	
-	agna.ctx.globalCompositOperation = 'darken';
-	agna.ctx.fillStyle = 'black';
-	agna.ctx.globalAlpha = 0.4;
-	agna.ctx.beginPath();
-	agna.ctx.moveTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 - 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 - 81, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
-	agna.ctx.lineTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 20);
-	agna.ctx.closePath();
-	agna.ctx.fill();
-	
-	agna.ctx.globalCompositOperation = 'source-over';
-	agna.ctx.fillStyle = agna.colors.color_2.color;
-	agna.ctx.globalAlpha = 1;
-	agna.ctx.beginPath();
-	agna.ctx.moveTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 - 60, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 - 95, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.lineTo(0, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.closePath();
-	agna.ctx.fill();
-	
-	agna.ctx.fillStyle = 'white';
-	agna.ctx.textAlign = 'center';
-	agna.ctx.font = "3em Motion Control";
-	agna.ctx.fillText(agna.getField(field_left), ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
 	
 	// Player 2
-	if (agna.getField(field_right, true).indexOf("%p1%") > -1) {
-		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	} else if (agna.getField(field_right, true).indexOf("%p2%") > -1) {
-		agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
-	} else {
-		agna.ctx.fillStyle = agna.colors.color_1.color;
+	if (agna.getField(field_right).trim() != "") {
+		if (agna.getField(field_right, true).indexOf("%p1%") > -1) {
+			agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+		} else if (agna.getField(field_right, true).indexOf("%p2%") > -1) {
+			agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+		} else {
+			agna.ctx.fillStyle = agna.colors.color_1.color;
+		}
+		agna.ctx.globalAlpha = 1;
+		agna.ctx.beginPath();
+		agna.ctx.moveTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
+		agna.ctx.lineTo(agna.ctx.width / 2 + 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
+		agna.ctx.lineTo(agna.ctx.width / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.lineTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.closePath();
+		agna.ctx.fill();
+		
+		agna.ctx.globalCompositOperation = 'darken';
+		agna.ctx.fillStyle = 'black';
+		agna.ctx.globalAlpha = 0.4;
+		agna.ctx.beginPath();
+		agna.ctx.moveTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
+		agna.ctx.lineTo(agna.ctx.width / 2 + 81, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
+		agna.ctx.lineTo(agna.ctx.width / 2 + 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.lineTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.closePath();
+		agna.ctx.fill();
+		
+		agna.ctx.fillStyle = agna.colors.color_2.color;
+		agna.ctx.globalAlpha = 1;
+		agna.ctx.beginPath();
+		agna.ctx.moveTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 + 95, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
+		agna.ctx.lineTo(agna.ctx.width / 2 + 60, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.lineTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
+		agna.ctx.closePath();
+		agna.ctx.fill();
+		
+		agna.ctx.fillStyle = 'white';
+		agna.ctx.textAlign = 'center';
+		agna.ctx.font = "3em Motion Control";
+		agna.ctx.fillText(agna.getField(field_right), agna.ctx.width - ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
 	}
-	agna.ctx.globalAlpha = 1;
-	agna.ctx.beginPath();
-	agna.ctx.moveTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
-	agna.ctx.lineTo(agna.ctx.width / 2 + 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
-	agna.ctx.lineTo(agna.ctx.width / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.lineTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.closePath();
-	agna.ctx.fill();
-	
-	agna.ctx.globalCompositOperation = 'darken';
-	agna.ctx.fillStyle = 'black';
-	agna.ctx.globalAlpha = 0.4;
-	agna.ctx.beginPath();
-	agna.ctx.moveTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
-	agna.ctx.lineTo(agna.ctx.width / 2 + 81, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 90);
-	agna.ctx.lineTo(agna.ctx.width / 2 + 40, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.lineTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.closePath();
-	agna.ctx.fill();
-	
-	agna.ctx.fillStyle = agna.colors.color_2.color;
-	agna.ctx.globalAlpha = 1;
-	agna.ctx.beginPath();
-	agna.ctx.moveTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 + 95, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 80);
-	agna.ctx.lineTo(agna.ctx.width / 2 + 60, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.lineTo(agna.ctx.width, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 30);
-	agna.ctx.closePath();
-	agna.ctx.fill();
-	
-	agna.ctx.fillStyle = 'white';
-	agna.ctx.textAlign = 'center';
-	agna.ctx.font = "3em Motion Control";
-	agna.ctx.fillText(agna.getField(field_right), agna.ctx.width - ((agna.ctx.width / 2) - 95) / 2, agna.ctx.height - (letterbox_max * letterbox_bottom_mult) - 44, 545);
 }
 
 function drawOverlay() {

@@ -151,8 +151,8 @@ agnaControl.prototype.cleanText = function(text, field) {
 		switch (field) {
 			case 'p1':
 			case 'p2':
-			case 'c1':
-			case 'c2':
+			case 'cam1':
+			case 'cam2':
 				text = text.replace("[w]", "").replace("[W]", "");
 				text = text.replace("[l]", "").replace("[L]", "");
 				break;
@@ -165,6 +165,13 @@ agnaControl.prototype.cleanText = function(text, field) {
 				text = text.replace("semi", "Semi");
 				text = text.replace("final", "Final");
 				break;
+			case 'co':
+				if (
+					(text.indexOf(this.getField('co1')) == -1 || text.indexOf(this.getField('co2')) == -1)
+					|| (this.getField('co1').trim() == "" || this.getField('co2').trim() == "")
+				) {
+					text = text.replace('+', '');
+				}
 		}
 	}
 	text = text.trim();

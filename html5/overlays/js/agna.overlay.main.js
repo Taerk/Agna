@@ -29,8 +29,11 @@ design.game = {
 };
 design.topbar = {
 	enabled: true,
-	design: 1, // 0 - Standard; 1 - CFL Smackdown
-	logo: "images/logos/cfl-smackdown-werstle/cfl-smash-melee-positive-white-188x55.png"
+	design: 1, // 0 - Standard; 1 - CFL Smackdown; 2 - CFL Smash
+	logo: {
+		path: "images/logos/cfl-smackdown-werstle/cfl-smackdown-positive-white-190x79.png",
+		scale: 0.8
+	}
 };
 design.players = {
 	adjust_x: 20,
@@ -46,7 +49,7 @@ design.sidebar = {
 		top: 5,
 		bottom: 0,
 		left: 0,
-		right: 10
+		right: 20
 	},
 	commentary: {
 		enabled: true,
@@ -78,7 +81,7 @@ design._stage_h = -1; // Game height
 design._sidebar_w = -1;
 
 function drawTop() {	
-	if (agna.getPlayerColor(1) > 0 && agna.getPlayerColor(2) > 0) {
+	if (agna.getPlayerColor(1) >= 0 && agna.getPlayerColor(2) >= 0) {
 		// Tournament bar outline
 		agna.ctx.fillStyle = agna.colors.outline.color;
 		agna.ctx.globalAlpha = agna.colors.outline.alpha;
@@ -212,25 +215,49 @@ function drawTop() {
 	
 	switch (design.topbar.design) {
 		case 1: // CFL Smackdown
-		case 3: // CFL Smackdown (alt)
 			agna.ctx.globalAlpha = 1;
 			agna.ctx.fillStyle = agna.colors.outline.color;
 			
 			if (typeof logo == 'undefined') {
 				logo = new Image();
-				logo.src = design.topbar.logo;
+				logo.src = design.topbar.logo.path;
 			}
-			logo.scale = 1;
 			
 			var d = { // Logo dimensions
-				width: logo.width * logo.scale,
-				height: logo.height * logo.scale
+				width: logo.width * design.topbar.logo.scale,
+				height: logo.height * design.topbar.logo.scale
+			};
+			
+			agna.ctx.beginPath();
+			agna.ctx.moveTo(design._stage_c - ((d.width * design.topbar.logo.scale) / 2) - (2 * design.topbar.logo.scale), 0);
+			agna.ctx.lineTo(design._stage_c - ((d.width * design.topbar.logo.scale) / 2) - (10 * design.topbar.logo.scale), 12 * design.topbar.logo.scale);
+			agna.ctx.lineTo(design._stage_c - ((d.width * design.topbar.logo.scale) / 2) - (25 * design.topbar.logo.scale), (d.height * design.topbar.logo.scale) + 18);
+			agna.ctx.lineTo(design._stage_c + ((d.width * design.topbar.logo.scale) / 2) - (10 * design.topbar.logo.scale), (d.height * design.topbar.logo.scale) + 18);
+			agna.ctx.lineTo(design._stage_c + ((d.width * design.topbar.logo.scale) / 2) + (12 * design.topbar.logo.scale), (d.height * design.topbar.logo.scale));
+			agna.ctx.lineTo(design._stage_c + ((d.width * design.topbar.logo.scale) / 2) + 20, 0);
+			agna.ctx.closePath();
+			agna.ctx.fill();
+			
+			agna.ctx.drawImage(logo, design._stage_c - (d.width / 2), 2, d.width, d.height);
+			break;
+		case 2: // CFL Smash
+			agna.ctx.globalAlpha = 1;
+			agna.ctx.fillStyle = agna.colors.outline.color;
+			
+			if (typeof logo == 'undefined') {
+				logo = new Image();
+				logo.src = design.topbar.logo.path;
+			}
+			
+			var d = { // Logo dimensions
+				width: logo.width * design.topbar.logo.scale,
+				height: logo.height * design.topbar.logo.scale
 			};
 			
 			agna.ctx.beginPath();
 			agna.ctx.moveTo(design._stage_c - (d.width / 2) - 8, 0);
-			agna.ctx.lineTo(design._stage_c - (d.width / 2) - 8, d.height - (13 * logo.scale));
-			agna.ctx.lineTo(design._stage_c - (d.width / 2) + (16 * logo.scale), d.height + 5);
+			agna.ctx.lineTo(design._stage_c - (d.width / 2) - 8, d.height - (13 * design.topbar.logo.scale));
+			agna.ctx.lineTo(design._stage_c - (d.width / 2) + (16 * design.topbar.logo.scale), d.height + 5);
 			agna.ctx.lineTo(design._stage_c + (d.width / 2) + 4, d.height + 5);
 			agna.ctx.lineTo(design._stage_c + (d.width / 2) + 8, d.height);
 			agna.ctx.lineTo(design._stage_c + (d.width / 2) + 8, 0);
@@ -290,7 +317,7 @@ function drawTop() {
 	// Text 1
 	agna.ctx.fillStyle = "white";
 	agna.ctx.globalAlpha = agna.text_alpha;
-	if (agna.getPlayerColor(1) > 0 && agna.getPlayerColor(2) > 0) {
+	if (agna.getPlayerColor(1) >= 0 && agna.getPlayerColor(2) >= 0) {
 		agna.ctx.fillText(agna.getField('ev'), ((design._stage_c - 10) + 55) / 2, 30, design._stage_c - 215);
 		agna.ctx.fillText(agna.cleanText(agna.getField('ma'), 'ma'), ((design._stage_c + 10) + (design._stage_e - 55)) / 2, 30, design._stage_c - 215);
 	} else {
@@ -331,9 +358,9 @@ function drawSide() {
 	// Camera 1
 	agna.ctx.globalAlpha = 1;
 	agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	if (agna.getField('c1', true).indexOf("%p1%") > -1) {
+	if (agna.getField('cam1', true).indexOf("%p1%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	} else if (agna.getField('c1', true).indexOf("%p2%") > -1) {
+	} else if (agna.getField('cam1', true).indexOf("%p2%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
 	}
 	agna.ctx.beginPath();
@@ -372,9 +399,9 @@ function drawSide() {
 	// Camera 2
 	agna.ctx.globalAlpha = 1;
 	agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
-	if (agna.getField('c2', true).indexOf("%p1%") > -1) {
+	if (agna.getField('cam2', true).indexOf("%p1%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-	} else if (agna.getField('c2', true).indexOf("%p2%") > -1) {
+	} else if (agna.getField('cam2', true).indexOf("%p2%") > -1) {
 		agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
 	}
 	agna.ctx.beginPath();
@@ -399,8 +426,8 @@ function drawSide() {
 	
 	agna.ctx.fillStyle = 'white';
 	agna.ctx.font = "bold 1em Arial";
-	agna.ctx.fillText(agna.cleanText(agna.getField('c1'), 'c1'), design._stage_e + (design._sidebar_w / 2) - 21, 189, design._sidebar_w - 42 - design.sidebar.padding);
-	agna.ctx.fillText(agna.cleanText(agna.getField('c2'), 'c2'), design._stage_e + (design._sidebar_w / 2) + 21, 215, design._sidebar_w - 42 - design.sidebar.padding);
+	agna.ctx.fillText(agna.cleanText(agna.getField('cam1'), 'cam1'), design._stage_e + (design._sidebar_w / 2) - 21, 189, design._sidebar_w - 42 - design.sidebar.padding);
+	agna.ctx.fillText(agna.cleanText(agna.getField('cam2'), 'cam2'), design._stage_e + (design._sidebar_w / 2) + 21, 215, design._sidebar_w - 42 - design.sidebar.padding);
 }
 
 function drawMusic() {
@@ -522,9 +549,9 @@ function drawCommentator() {
 	agna.ctx.fillStyle = 'white';
 	agna.ctx.font = "bold 1em Arial";
 	if (design.sidebar.center_in_border) {
-		agna.ctx.fillText(agna.cleanText(agna.getField('co')), design._stage_e + ((design._sidebar_w + 25) / 2) - (design.sidebar.border.right / 2), agna.ctx.height - 8, design._sidebar_w - 25 - design.sidebar.padding - design.sidebar.border.right);
+		agna.ctx.fillText(agna.cleanText(agna.getField('co1') + ' + ' + agna.getField('co2'), 'co'), design._stage_e + ((design._sidebar_w + 25) / 2) - (design.sidebar.border.right / 2), agna.ctx.height - 8, design._sidebar_w - 25 - design.sidebar.padding - design.sidebar.border.right);
 	} else {
-		agna.ctx.fillText(agna.cleanText(agna.getField('co')), design._stage_e + ((design._sidebar_w + 25) / 2), agna.ctx.height - 8, design._sidebar_w - 25 - design.sidebar.padding);
+		agna.ctx.fillText(agna.cleanText(agna.getField('co1') + ' + ' + agna.getField('co2'), 'co'), design._stage_e + ((design._sidebar_w + 25) / 2), agna.ctx.height - 8, design._sidebar_w - 25 - design.sidebar.padding);
 	}
 	
 	agna.ctx.drawImage(commentator_icon, design._stage_e, agna.ctx.height - 25);
@@ -541,7 +568,7 @@ function drawPlayer(player) {
 	}
 	
 	// Player 1 Bar
-	if (agna.getPlayerColor(player) > 1) {
+	if (agna.getPlayerColor(player) >= 0) {
 		agna.ctx.fillStyle = agna.colors.outline.color;
 		agna.ctx.globalAlpha = agna.colors.outline.alpha;
 		agna.ctx.beginPath();
@@ -859,6 +886,7 @@ function drawPlayer(player) {
 			agna.ctx.fill();
 			break;
 		default:
+			agna.ctx.font = "bold 1.6em 'arial'";
 			agna.ctx.fillText(agna.getField('s' + player), player_offset + 48, design._stage_h - 5);
 			break;
 	}

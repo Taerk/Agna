@@ -1087,7 +1087,7 @@ function drawPlayer(player) {
 	if (player == 2) {
 		agna.ctx.fillText(agna.cleanText(agna.getField('p' + player), 'p' + player), design._stage_e - 250 - design.players.adjust_x, player_offset_y - 9);
 	} else {
-		agna.ctx.fillText(agna.cleanText(agna.getField('p' + player), 'p' + player), 250 + design.players.adjust_x + player_offset_x, player_offset_y - 9);
+		agna.ctx.fillText(agna.cleanText(agna.getField('p' + player), 'p' + player), 250 + design.players.adjust_x, player_offset_y - 9);
 	}
 	
 }

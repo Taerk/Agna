@@ -58,7 +58,7 @@ function agnaColor(canvas) {
 	this.camera_name		= {color: 'rgb(147,117,0)', alpha: 1};
 	this.sidebar 			= {color: '#050505', alpha: 1};
 	this.sidebar_alt 		= {color: '#000', alpha: 1};
-	this.sidebar_c1 		= {color: '#000', alpha: 1};
+	this.sidebar_c1 		= {color: '#222', alpha: 1};
 	this.sidebar_c2 		= {color: '#000', alpha: 1};
 	this.players			= {color: '#050505', alpha: 1};
 	this.player_1			= {color: 'rgb(147,117,0)', alpha: 1};

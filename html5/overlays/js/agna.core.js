@@ -15,15 +15,9 @@
 */
 
 /* Creates Agna */
-function agnaControl(input_canvas) {	
-	try {
-		this.canvas = input_canvas;
-		this.ctx = this.canvas.getContext("2d");
-	} catch (e) {
-		alert("Error: Canvas not found.\n\n" + e.toString());
-		return false;
-	}
-	
+function agnaControl(input_canvas) {
+	_root = this;
+	this.DEBUG = true;
 	this.AGNA_OUTPUT = "agna-output.xml";
 	// Overlay resolution
 	this.OVERLAY_WIDTH 	= 1280;
@@ -31,88 +25,41 @@ function agnaControl(input_canvas) {
 	// Canvas will scale to this
 	this.WINDOW_WIDTH 	= 1280;
 	this.WINDOW_HEIGHT 	= 720;
+	
+	try {
+		this.canvas = input_canvas;
+		this.ctx = this.canvas.getContext("2d");
+	} catch (e) {
+		if (this.DEBUG) {
+			alert("Error: Canvas not found.\n\n" + e.toString());
+		}
+		return false;
+	}
 
 	this.ctx.width = this.OVERLAY_WIDTH;
 	this.ctx.height = this.OVERLAY_HEIGHT;
-	
-	/* Gradient for score -- used later */
-	this.winner_gradient = this.ctx.createLinearGradient(0, this.ctx.height - 26, 0, this.ctx.height - 4);
-	this.winner_gradient.addColorStop(0,"#2a2");
-	this.winner_gradient.addColorStop(0.8,"#050");
-	this.winner_gradient.addColorStop(0.8,"#080");
-	this.winner_gradient.addColorStop(1,"#080");
-	
-	this.rainbow = {
-		diff: 1, // Change in color value
-		chance: 10, // % to switch direction
-		r:{
-			d: 1,								// Color value
-			v: Math.floor(Math.random() * 256), // Color direction (for randomization)
-			min: 0,								// Color increase
-			mult: 1.0							// Color multiplier
-		},
-		g: {
-			d: 1,
-			v: Math.floor(Math.random() * 256),
-			min: 0,
-			mult: 0.7
-		},
-		b: {
-			d: 1,
-			v: Math.floor(Math.random() * 256),
-			min: 0,
-			mult: 0.0
-		}
-	};
-	
-	/* This is the stuff that you can change and set */
-	// CFL Smackdown Color - 147,117,0
-	this.colors = {};
-	this.colors.color_1			= {color: 'rgb(147,117,0)'};
-	this.colors.color_2			= {color: '#222'};
-	this.colors.color_3			= {color: '#111'};
-	this.colors.color_4			= {color: 'rgb(0,0,0)'};
-	this.colors.color_5			= {color: 'rgb(0,0,0)'};
-	
-	this.colors.outline 		= {color: '#403a30', alpha: 1};
-	this.colors.topbar 			= {color: 'rgb(147,117,0)', alpha: 1};
-	this.colors.topbar_short 	= {color: '#09f', alpha: 1};
-	this.colors.camera_name		= {color: 'rgb(147,117,0)', alpha: 1};
-	this.colors.sidebar 		= {color: '#050505', alpha: 1};
-	this.colors.sidebar_alt 	= {color: '#000', alpha: 1};
-	this.colors.sidebar_c1 		= {color: '#000', alpha: 1};
-	this.colors.sidebar_c2 		= {color: '#000', alpha: 1};
-	this.colors.players			= {color: '#050505', alpha: 1};
-	this.colors.player_1		= {color: 'rgb(147,117,0)', alpha: 1};
-	this.colors.player_2		= {color: 'rgb(147,117,0)', alpha: 1};
-	this.colors.score			= {};
-	this.colors.score.null		= {color: '#222', alpha: 1};
-	this.colors.score.winner	= {color: this.winner_gradient, alpha: 1};
-	this.colors.score.border 	= {color: 'white', 'width': 2, 'alpha': 0.6}
-	this.colors.player 			= []
-	this.colors.player[0]		= 'rgb(147,117,0)';		// Classic
-	this.colors.player[1]		= 'rgb(' + this.rainbow.r.v + ',' + this.rainbow.g.v + ',' + this.rainbow.b.v + ')'; // Rainbow
-	this.colors.player[2]		= 'rgb(147,117,0)';		// Default
-	this.colors.player[3]		= 'rgb(73,147,73)';		// Winner
-	this.colors.player[4]		= 'rgb(167,73,73)';		// Loser
-	this.colors.player[5]		= 'rgb(151,151,151)';	// Light
-	this.colors.player[6]		= 'rgb(51,51,51)';		// Dark
-	this.colors.player[7]		= 'rgb(153,51,153)';	// Purple
-	this.colors.music			= {color: 'rgb(57,117,0)', alpha: 1};
-	this.colors.commentator		= {color: 'rgb(147,117,0)', alpha: 1};
+	this.colors = new agnaColor(this.ctx);
 	
 	/* You might not want to change anything below this */
 	this.loading = false; /* Set to true when some ajax is working */
 	this.loaded = false; /* Layout information has been loaded at least once */
-	this.base64 = {}
-	this.base64.p1 = "";
-	this.base64.p2 = "";
+	this.last = {}
+	this.last.baseP1 = "";
+	this.last.baseP2 = "";
+	this.last.imgP1 = "";
+	this.last.imgP2 = "";
 	this.text_alpha = 0;
 	this.content = {};
 	this.color_p1 = 0;
 	this.color_p2 = 0;
 	this.grid = false;
 	this.frame = 0;
+	
+	if (typeof colors != 'undefined') {
+		$.each(colors, function(key,val) {
+			_root.colors[key] = val;
+		});
+	}
 }
 
 agnaControl.prototype.pad = function(string, amount, padstring, direction) {
@@ -243,7 +190,7 @@ agnaControl.prototype.getPlayerColor = function(player) {
 	if (typeof this.colors.player[parseInt(get_color)] != "undefined") {
 		return get_color;
 	} else {
-		return -1;
+		return 0;
 	}
 	
 	return current_color;
@@ -251,17 +198,17 @@ agnaControl.prototype.getPlayerColor = function(player) {
 
 agnaControl.prototype.drawFrame = function() {
 	// Rainbow
-	this.rainbow.r.v += (this.rainbow.diff * this.rainbow.r.d);
-	this.rainbow.g.v += (this.rainbow.diff * this.rainbow.g.d);
-	this.rainbow.b.v += (this.rainbow.diff * this.rainbow.b.d);
+	this.colors.rainbow.r.v += (this.colors.rainbow.diff * this.colors.rainbow.r.d);
+	this.colors.rainbow.g.v += (this.colors.rainbow.diff * this.colors.rainbow.g.d);
+	this.colors.rainbow.b.v += (this.colors.rainbow.diff * this.colors.rainbow.b.d);
 	
-	this.rainbow.r.d = ((Math.floor(Math.random() * (100 / this.rainbow.chance)) == 0) || this.rainbow.r.v >= 255 || this.rainbow.r.v <= 0) ? this.rainbow.r.d * -1 : this.rainbow.r.d;
-	this.rainbow.g.d = ((Math.floor(Math.random() * (100 / this.rainbow.chance)) == 0) || this.rainbow.g.v >= 255 || this.rainbow.g.v <= 0) ? this.rainbow.g.d * -1 : this.rainbow.g.d;
-	this.rainbow.b.d = ((Math.floor(Math.random() * (100 / this.rainbow.chance)) == 0) || this.rainbow.b.v >= 255 || this.rainbow.b.v <= 0) ? this.rainbow.b.d * -1 : this.rainbow.b.d;
+	this.colors.rainbow.r.d = ((Math.floor(Math.random() * (100 / this.colors.rainbow.chance)) == 0) || this.colors.rainbow.r.v >= 255 || this.colors.rainbow.r.v <= 0) ? this.colors.rainbow.r.d * -1 : this.colors.rainbow.r.d;
+	this.colors.rainbow.g.d = ((Math.floor(Math.random() * (100 / this.colors.rainbow.chance)) == 0) || this.colors.rainbow.g.v >= 255 || this.colors.rainbow.g.v <= 0) ? this.colors.rainbow.g.d * -1 : this.colors.rainbow.g.d;
+	this.colors.rainbow.b.d = ((Math.floor(Math.random() * (100 / this.colors.rainbow.chance)) == 0) || this.colors.rainbow.b.v >= 255 || this.colors.rainbow.b.v <= 0) ? this.colors.rainbow.b.d * -1 : this.colors.rainbow.b.d;
 	
-	var rainbow_r = Math.round((this.rainbow.r.v * this.rainbow.r.mult) + this.rainbow.r.min);
-	var rainbow_g = Math.round((this.rainbow.g.v * this.rainbow.g.mult) + this.rainbow.g.min);
-	var rainbow_b = Math.round((this.rainbow.b.v * this.rainbow.b.mult) + this.rainbow.b.min);
+	var rainbow_r = Math.round((this.colors.rainbow.r.v * this.colors.rainbow.r.mult) + this.colors.rainbow.r.min);
+	var rainbow_g = Math.round((this.colors.rainbow.g.v * this.colors.rainbow.g.mult) + this.colors.rainbow.g.min);
+	var rainbow_b = Math.round((this.colors.rainbow.b.v * this.colors.rainbow.b.mult) + this.colors.rainbow.b.min);
 	
 	if (rainbow_r > 255) { rainbow_r = 255; } else if (rainbow_r < 0) { rainbow_r = 0; }
 	if (rainbow_g > 255) { rainbow_g = 255; } else if (rainbow_g < 0) { rainbow_g = 0; }
@@ -274,22 +221,25 @@ agnaControl.prototype.drawFrame = function() {
 	this.color_p2 = this.getPlayerColor(2);
 	
 	if (this.color_p1 == -1 || !this.color_p2 == -1) {
-		agna.ctx.font = "bold 3em monospace";
-		agna.ctx.fillStyle = 'red';
-		agna.ctx.strokeStyle = 'black';
-		agna.ctx.lineWidth = 5;
-		agna.ctx.textAlign = 'center';
-		agna.ctx.strokeText("Error #4", 640, 300);
-		agna.ctx.fillText("Error #4", 640, 300);
-		agna.ctx.strokeText("Unable to load player colors", 640, 360);
-		agna.ctx.fillText("Unable to load player colors", 640, 360);
+		if (this.DEBUG
+		) {
+			agna.ctx.font = "bold 3em monospace";
+			agna.ctx.fillStyle = 'red';
+			agna.ctx.strokeStyle = 'black';
+			agna.ctx.lineWidth = 5;
+			agna.ctx.textAlign = 'center';
+			agna.ctx.strokeText("Error #4", 640, 300);
+			agna.ctx.fillText("Error #4", 640, 300);
+			agna.ctx.strokeText("Unable to load player colors", 640, 360);
+			agna.ctx.fillText("Unable to load player colors", 640, 360);
+		}
 	} else {
 		drawOverlay();
 	}
 }
 
 /* jQuery to run on page load */
-$(document).ready(function() {	
+$(document).ready(function() {
 	if ($('#overlay').length > 0) {
 		agna = new agnaControl(document.getElementById("overlay"));
 		
@@ -317,7 +267,11 @@ $(document).ready(function() {
 			});
 			$(window).resize();
 				
-			if (navigator.userAgent.toString().toLowerCase().indexOf("chrome") == -1 || (navigator.userAgent.toString().toLowerCase().indexOf("chrome") > -1 && navigator.userAgent.toString().toLowerCase().indexOf("xsplit") > -1)) {
+			if (
+				navigator.userAgent.toString().toLowerCase().indexOf("chrome") == -1 ||
+				(navigator.userAgent.toString().toLowerCase().indexOf("chrome") > -1 && navigator.userAgent.toString().toLowerCase().indexOf("xsplit") > -1) ||
+				(navigator.userAgent.toString().toLowerCase().indexOf("chrome") > -1 && navigator.userAgent.toString().toLowerCase().indexOf("safari") > -1)
+			) {
 				if (typeof drawOverlay == 'function') {
 					agna.loadAgna();
 					agna.drawFrame();
@@ -330,14 +284,16 @@ $(document).ready(function() {
 					agna.ctx.lineWidth = 5;
 					agna.ctx.textAlign = 'center';
 					
-					agna.ctx.strokeText("Error #3", 640, 280);
-					agna.ctx.fillText("Error #3", 640, 280);
-					agna.ctx.strokeText("drawOverlay() function does not exist.", 640, 340);
-					agna.ctx.fillText("drawOverlay() function does not exist.", 640, 340);
-					agna.ctx.strokeText("Load an overlay .js file", 640, 400);
-					agna.ctx.fillText("Load an overlay .js file", 640, 400);
-					agna.ctx.strokeText("There could also be an error in drawOverlay()", 640, 500);
-					agna.ctx.fillText("There could also be an error in drawOverlay()", 640, 500);
+					if (agna.DEBUG) {
+						agna.ctx.strokeText("Error #3", 640, 280);
+						agna.ctx.fillText("Error #3", 640, 280);
+						agna.ctx.strokeText("drawOverlay() function does not exist.", 640, 340);
+						agna.ctx.fillText("drawOverlay() function does not exist.", 640, 340);
+						agna.ctx.strokeText("Load an overlay .js file", 640, 400);
+						agna.ctx.fillText("Load an overlay .js file", 640, 400);
+						agna.ctx.strokeText("There could also be an error in drawOverlay()", 640, 500);
+						agna.ctx.fillText("There could also be an error in drawOverlay()", 640, 500);
+					}
 				}
 			} else {
 				agna.ctx.font = "bold 3em monospace";
@@ -346,16 +302,18 @@ $(document).ready(function() {
 				agna.ctx.lineWidth = 5;
 				agna.ctx.textAlign = 'center';
 			
-				agna.ctx.strokeText("Permanent Error", 640, 280);
-				agna.ctx.fillText("Permanent Error", 640, 280);
-				agna.ctx.strokeText("Preview not available in Chrome.", 640, 370);
-				agna.ctx.fillText("Preview not available in Chrome.", 640, 370);
-				agna.ctx.strokeText("This is due to Chrome's security policy.", 640, 430);
-				agna.ctx.fillText("This is due to Chrome's security policy.", 640, 430);
-				agna.ctx.font = "bold 1.5em monospace";
-				agna.ctx.lineWidth = 3;
-				agna.ctx.strokeText(navigator.userAgent.toString(), 640, 470);
-				agna.ctx.fillText(navigator.userAgent.toString(), 640, 470);
+				if (agna.DEBUG) {
+					agna.ctx.strokeText("Permanent Error", 640, 280);
+					agna.ctx.fillText("Permanent Error", 640, 280);
+					agna.ctx.strokeText("Preview not available in Chrome.", 640, 370);
+					agna.ctx.fillText("Preview not available in Chrome.", 640, 370);
+					agna.ctx.strokeText("This is due to Chrome's security policy.", 640, 430);
+					agna.ctx.fillText("This is due to Chrome's security policy.", 640, 430);
+					agna.ctx.font = "bold 1.5em monospace";
+					agna.ctx.lineWidth = 3;
+					agna.ctx.strokeText(navigator.userAgent.toString(), 640, 470);
+					agna.ctx.fillText(navigator.userAgent.toString(), 640, 470);
+				}
 			}
 		} else {
 			c = document.getElementById("overlay");
@@ -384,6 +342,8 @@ $(document).ready(function() {
 			ctx.fillText("agna object not created", 640, 360);
 		}
 	} else {
-		$('body').html('<div style="color: black; text-align: center"><h2>Error #1</h2><h2>#overlay does not exist</h2></div>');
+		if (agna.DEBUG) {
+			$('body').html('<div style="color: black; text-align: center"><h2>Error #1</h2><h2>#overlay does not exist</h2></div>');
+		}
 	}
 });

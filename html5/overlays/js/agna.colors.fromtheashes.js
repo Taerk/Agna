@@ -66,14 +66,13 @@ function agnaColor(canvas) {
 	this.score.winner		= {color: this.winner_gradient, alpha: 1};
 	this.score.border 		= {color: 'white', 'width': 2, 'alpha': 0.6}
 	this.player 			= [];
-	this.player[0]			= '#a00';				// Classic
-	this.player[1]			= 'rgb(' + this.rainbow.r.v + ',' + this.rainbow.g.v + ',' + this.rainbow.b.v + ')'; // Rainbow
-	this.player[2]			= '#a00';				// Default
-	this.player[3]			= 'rgb(73,147,73)';		// Winner
-	this.player[4]			= 'rgb(167,73,73)';		// Loser
-	this.player[5]			= 'rgb(151,151,151)';	// Light
-	this.player[6]			= 'rgb(51,51,51)';		// Dark
-	this.player[7]			= 'rgb(153,51,153)';	// Purple
+	this.player['default']	= '#a00';				// Classic
+	this.player['rainbow']	= 'rgb(' + this.rainbow.r.v + ',' + this.rainbow.g.v + ',' + this.rainbow.b.v + ')'; // Rainbow
+	this.player['red']		= 'rgb(167,73,73)';		// Loser
+	this.player['green']	= 'rgb(73,147,73)';		// Winner
+	this.player['blue']		= 'rgb(91,91,168)';		// Blue
+	this.player['light']	= 'rgb(151,151,151)';	// Light
+	this.player['dark']		= 'rgb(51,51,51)';		// Dark
 	this.music				= {color: 'rgb(57,117,0)', alpha: 1};
 	this.commentator		= {color: 'rgb(147,117,0)', alpha: 1};
 }

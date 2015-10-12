@@ -185,15 +185,30 @@ agnaControl.prototype.getImage = function(player) {
 };
 
 agnaControl.prototype.getPlayerColor = function(player) {
-	var current_color = 1;
 	var get_color = $(this.content).find('agna-panel').find('fields').find('main').find('[name="p'+player+'"]').attr("color");
-	if (typeof this.colors.player[parseInt(get_color)] != "undefined") {
-		return get_color;
-	} else {
-		return 0;
+
+	switch (true) {
+		case (typeof get_color == "undefined"):
+			if (typeof this.colors.player['default'] != 'undefined') {
+				return this.colors.player['default'];
+			} else {
+				return '#000';
+			}
+			break;
+		case (typeof this.colors.player[get_color] != "undefined"):
+			return this.colors.player[get_color];
+			break;
+		case (get_color.length == 7 && get_color[0] == "#"):
+			return get_color;
+			break;
+		default:
+			if (typeof this.colors.player['default'] != 'undefined') {
+				return this.colors.player['default'];
+			} else {
+				return '#000';
+			}
+			break;
 	}
-	
-	return current_color;
 };
 
 agnaControl.prototype.drawFrame = function() {
@@ -214,28 +229,9 @@ agnaControl.prototype.drawFrame = function() {
 	if (rainbow_g > 255) { rainbow_g = 255; } else if (rainbow_g < 0) { rainbow_g = 0; }
 	if (rainbow_b > 255) { rainbow_b = 255; } else if (rainbow_b < 0) { rainbow_b = 0; }
 	
-	this.colors.player[1] = 'rgb(' + rainbow_r + ',' + rainbow_g + ',' + rainbow_b + ')'; // Rainbow
+	this.colors.player['rainbow'] = 'rgb(' + rainbow_r + ',' + rainbow_g + ',' + rainbow_b + ')'; // Rainbow
 	
-	// Set player colors
-	this.color_p1 = this.getPlayerColor(1);
-	this.color_p2 = this.getPlayerColor(2);
-	
-	if (this.color_p1 == -1 || !this.color_p2 == -1) {
-		if (this.DEBUG
-		) {
-			agna.ctx.font = "bold 3em monospace";
-			agna.ctx.fillStyle = 'red';
-			agna.ctx.strokeStyle = 'black';
-			agna.ctx.lineWidth = 5;
-			agna.ctx.textAlign = 'center';
-			agna.ctx.strokeText("Error #4", 640, 300);
-			agna.ctx.fillText("Error #4", 640, 300);
-			agna.ctx.strokeText("Unable to load player colors", 640, 360);
-			agna.ctx.fillText("Unable to load player colors", 640, 360);
-		}
-	} else {
-		drawOverlay();
-	}
+	drawOverlay();
 }
 
 /* jQuery to run on page load */
@@ -273,8 +269,8 @@ $(document).ready(function() {
 				(navigator.userAgent.toString().toLowerCase().indexOf("chrome") > -1 && navigator.userAgent.toString().toLowerCase().indexOf("safari") > -1)
 			) {
 				if (typeof drawOverlay == 'function') {
-					agna.loadAgna();
 					agna.drawFrame();
+					agna.loadAgna();
 					agna.auto_draw = setInterval("agna.drawFrame()", 50);
 					agna.auto_load = setInterval("agna.loadAgna()", 2000);
 				} else {

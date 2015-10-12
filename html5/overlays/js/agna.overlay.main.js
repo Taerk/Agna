@@ -21,6 +21,7 @@ design.sections.clock 		= true;
 design.set = {};
 design.set.bounds = false;
 design.set.animations = false;
+design.style = 0; // 0 - Standard; 1 - Classic
 
 design.game = {
 	enabled: true,
@@ -182,7 +183,7 @@ function setAnimations() {
 }
 
 function drawTop() {
-	if (agna.getPlayerColor(1) > -1 && agna.getPlayerColor(2) > -1) {
+	if (design.style == 0) {
 		// Tournament bar outline
 		agna.ctx.fillStyle = agna.colors.outline.color;
 		agna.ctx.globalAlpha = agna.colors.outline.alpha;
@@ -469,7 +470,7 @@ function drawTop() {
 	// Text 1
 	agna.ctx.fillStyle = "white";
 	agna.ctx.globalAlpha = agna.text_alpha * design.topbar._animation.textA.frame;
-	if (agna.getPlayerColor(1) > -1 && agna.getPlayerColor(2) > -1) {
+	if (design.style == 0) {
 		agna.ctx.fillText(agna.getField('ev'), ((design._stage_x + design._stage_c - 10) + 55) / 2 - text_adjust, 30, design._stage_c - 215);
 		agna.ctx.fillText(agna.cleanText(agna.getField('ma'), 'ma'), ((design._stage_c + 10) + (design._stage_e - 55)) / 2 + text_adjust, 30, design._stage_c - 215);
 	} else {
@@ -513,11 +514,11 @@ function drawSide() {
 			
 			// Camera 1
 			agna.ctx.globalAlpha = 1;
-			agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+			agna.ctx.fillStyle = agna.getPlayerColor(1);
 			if (agna.getField('cam1', true).indexOf("%p1%") > -1) {
-				agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+				agna.ctx.fillStyle = agna.getPlayerColor(1);
 			} else if (agna.getField('cam1', true).indexOf("%p2%") > -1) {
-				agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+				agna.ctx.fillStyle = agna.getPlayerColor(2);
 			}
 			agna.ctx.beginPath();
 			if (design.sidebar.center_in_border) {
@@ -554,11 +555,11 @@ function drawSide() {
 			
 			// Camera 2
 			agna.ctx.globalAlpha = 1;
-			agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+			agna.ctx.fillStyle = agna.getPlayerColor(2);
 			if (agna.getField('cam2', true).indexOf("%p1%") > -1) {
-				agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+				agna.ctx.fillStyle = agna.getPlayerColor(1);
 			} else if (agna.getField('cam2', true).indexOf("%p2%") > -1) {
-				agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+				agna.ctx.fillStyle = agna.getPlayerColor(2);
 			}
 			agna.ctx.beginPath();
 			agna.ctx.moveTo(agna.ctx.width, 197);
@@ -746,8 +747,8 @@ function drawPlayer(player) {
 		player_offset_x = -design._stage_e + design.players.adjust_x;
 	}
 	
-	// Player 1 Bar
-	if (agna.getPlayerColor(player) > -1) {
+	// Player Bar
+	if (design.style == 0) {
 		agna.ctx.fillStyle = agna.colors.outline.color;
 		agna.ctx.globalAlpha = agna.colors.outline.alpha;
 		agna.ctx.beginPath();
@@ -762,14 +763,7 @@ function drawPlayer(player) {
 		agna.ctx.closePath();
 		agna.ctx.fill();
 		
-		switch (player) {
-			case 1:
-				agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
-				break;
-			case 2:
-				agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
-				break;
-		}
+		agna.ctx.fillStyle = agna.getPlayerColor(player);
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(player_offset_x + 65, player_offset_y);
 		agna.ctx.lineTo(player_offset_x + 85, player_offset_y - 35);
@@ -824,13 +818,17 @@ function drawPlayer(player) {
 		agna.ctx.closePath();
 		agna.ctx.fill();
 		
-		agna.ctx.fillStyle = agna.colors.player_bar.color;
+		agna.ctx.fillStyle = agna.getPlayerColor(player);
 		agna.ctx.globalAlpha = agna.colors.player_bar.alpha;
 		agna.ctx.beginPath();
-		agna.ctx.moveTo(player_offset_x + 65, player_offset_y);
-		agna.ctx.lineTo(player_offset_x + 85, player_offset_y - 35);
-		agna.ctx.lineTo(player_offset_x + 420, player_offset_y - 35);
-		agna.ctx.lineTo(player_offset_x + 440, player_offset_y);
+		agna.ctx.moveTo(player_offset_x + 10, player_offset_y);
+		agna.ctx.lineTo(player_offset_x + 23, player_offset_y - 23);
+		agna.ctx.lineTo(player_offset_x + 32, player_offset_y - 23);
+		agna.ctx.lineTo(player_offset_x + 34, player_offset_y - 28);
+		agna.ctx.lineTo(player_offset_x + 62, player_offset_y - 28);
+		agna.ctx.lineTo(player_offset_x + 66, player_offset_y - 35);
+		agna.ctx.lineTo(player_offset_x + 440, player_offset_y - 35);
+		agna.ctx.lineTo(player_offset_x + 460, player_offset_y);
 		agna.ctx.closePath();
 		agna.ctx.fill();
 	}

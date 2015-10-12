@@ -1,3 +1,10 @@
+/*
+*  Name: CFL Smackdown Colors
+*  Version: 1.0.1
+*  Updated: 10/12/2015
+*  Author: Taerk
+*/
+
 function agnaColor(canvas) {
 
 	/* Gradient for score -- used later */

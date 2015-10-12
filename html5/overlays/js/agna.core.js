@@ -9,8 +9,8 @@
 *  []      []    [][][]    []      []  []      []
 * 
 *  Name: AgnaControl
-*  Version: 1.1.2
-*  Updated: 9/12/2015
+*  Version: 1.1.3
+*  Updated: 10/12/2015
 *  Author: Taerk
 */
 

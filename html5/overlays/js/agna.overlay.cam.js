@@ -1,7 +1,7 @@
 /*
-*  Name: Camera
-*  Version: 1.1
-*  Updated: 9/12/2015
+*  Name: Smackdown Camera
+*  Version: 1.0.2
+*  Updated: 10/12/2015
 *  Author: Taerk
 */
 
@@ -96,11 +96,11 @@ function drawBottomBar() {
 	
 	// Player 1
 	if (agna.getField(field_left).trim() != "") {
-		agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+		agna.ctx.fillStyle = agna.getPlayerColor(1);
 		if (agna.getField(field_left, true).indexOf("%p1%") > -1) {
-			agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+			agna.ctx.fillStyle = agna.getPlayerColor(1);
 		} else if (agna.getField(field_left, true).indexOf("%p2%") > -1) {
-			agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+			agna.ctx.fillStyle = agna.getPlayerColor(2);
 		} else {
 			agna.ctx.fillStyle = agna.colors.color_1.color;
 		}
@@ -144,9 +144,9 @@ function drawBottomBar() {
 	// Player 2
 	if (agna.getField(field_right).trim() != "") {
 		if (agna.getField(field_right, true).indexOf("%p1%") > -1) {
-			agna.ctx.fillStyle = agna.colors.player[agna.color_p1];
+			agna.ctx.fillStyle = agna.getPlayerColor(1);
 		} else if (agna.getField(field_right, true).indexOf("%p2%") > -1) {
-			agna.ctx.fillStyle = agna.colors.player[agna.color_p2];
+			agna.ctx.fillStyle = agna.getPlayerColor(2);
 		} else {
 			agna.ctx.fillStyle = agna.colors.color_1.color;
 		}

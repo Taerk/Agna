@@ -1,8 +1,35 @@
 @font-face {
-	font-family: aovel sans;
+	font-family: Aovel Sans;
 	src: url('../fonts/aovel_sans/ASansBOLD.ttf');
 }
 @font-face {
 	font-family: Motion Control;
 	src: url('../fonts/motion_control/MotionControl-Bold.otf');
+}
+@font-face {
+	font-family: SF Transrobotics;
+	src: url('../fonts/sf_transrobotics/SFTRANSROBOTICSCONDENSED.TTF');
+}
+@font-face {
+	font-family: Zekton;
+	src: url('../fonts/zekton/zektonrg.ttf');
+}
+html, body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: transparent;
+	overflow: hidden;
+	color: white;
+	display: flex;
+}
+#overlay {
+	display: block;
+	width: 1280px;
+	height: 720px;
+	margin: auto;
+	background-color: transparent;
+	background-position: center right;
+	/* border: 1px solid red; */
 }

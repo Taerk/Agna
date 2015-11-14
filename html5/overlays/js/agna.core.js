@@ -9,8 +9,8 @@
 *  []      []    [][][]    []      []  []      []
 * 
 *  Name: AgnaControl
-*  Version: 1.1.3
-*  Updated: 10/12/2015
+*  Version: 1.1.4
+*  Updated: 11/9/15
 *  Author: Taerk
 */
 
@@ -18,6 +18,7 @@
 function agnaControl(input_canvas) {
 	_root = this;
 	this.DEBUG = true;
+	this.GRID = false;
 	this.AGNA_OUTPUT = "agna-output.xml";
 	// Overlay resolution
 	this.OVERLAY_WIDTH 	= 1280;
@@ -52,7 +53,6 @@ function agnaControl(input_canvas) {
 	this.content = {};
 	this.color_p1 = 0;
 	this.color_p2 = 0;
-	this.grid = false;
 	this.frame = 0;
 	
 	if (typeof colors != 'undefined') {
@@ -112,6 +112,15 @@ agnaControl.prototype.cleanText = function(text, field) {
 				text = text.replace("semi", "Semi");
 				text = text.replace("final", "Final");
 				break;
+			case 'tw':
+			case 'tw1':
+			case 'tw2':
+				if (text.trim() == "") {
+					text = "";
+				} else {
+					text = ("@" + text);
+				}
+				break;
 			case 'co':
 				if (
 					(text.indexOf(this.getField('co1')) == -1 || text.indexOf(this.getField('co2')) == -1)
@@ -119,6 +128,7 @@ agnaControl.prototype.cleanText = function(text, field) {
 				) {
 					text = text.replace('+', '');
 				}
+				break;
 		}
 	}
 	text = text.trim();
@@ -271,7 +281,7 @@ $(document).ready(function() {
 				if (typeof drawOverlay == 'function') {
 					agna.drawFrame();
 					agna.loadAgna();
-					agna.auto_draw = setInterval("agna.drawFrame()", 50);
+					agna.auto_draw = setInterval("agna.drawFrame()", 500);
 					agna.auto_load = setInterval("agna.loadAgna()", 2000);
 				} else {
 					agna.ctx.font = "bold 3em monospace";

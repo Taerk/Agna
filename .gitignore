@@ -3,3 +3,5 @@ _testing
 *.xml
 *.json
 *.agna
+*.bak
+*.vfb

@@ -9,7 +9,7 @@
 *  []      []    [][][]    []      []  []      []
 * 
 *  Name: AgnaControl
-*  Version: 1.1.4
+*  Version: 1.1.5
 *  Updated: 11/9/15
 *  Author: Taerk
 */
@@ -26,6 +26,7 @@ function agnaControl(input_canvas) {
 	// Canvas will scale to this
 	this.WINDOW_WIDTH 	= 1280;
 	this.WINDOW_HEIGHT 	= 720;
+	this.OUTLINE_IN_BROWSER = true;
 	
 	try {
 		this.canvas = input_canvas;
@@ -281,8 +282,12 @@ $(document).ready(function() {
 				if (typeof drawOverlay == 'function') {
 					agna.drawFrame();
 					agna.loadAgna();
-					agna.auto_draw = setInterval("agna.drawFrame()", 500);
+					agna.auto_draw = setInterval("agna.drawFrame()", 50);
 					agna.auto_load = setInterval("agna.loadAgna()", 2000);
+					
+					if (navigator.userAgent.toString().toLowerCase().indexOf("firefox")) {
+						$('#overlay').css('border', '1px solid black');
+					}
 				} else {
 					agna.ctx.font = "bold 3em monospace";
 					agna.ctx.fillStyle = 'red';

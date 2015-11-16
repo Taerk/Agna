@@ -27,6 +27,10 @@ function agnaColor(canvas) {
 	this.sidebar_gradient.addColorStop(0.9,"#111");
 	this.sidebar_gradient.addColorStop(1,"#111");
 
+	this.outline_gradient = canvas.createLinearGradient(0, 0, 0, canvas.height);
+	this.outline_gradient.addColorStop(0,"#fff");
+	this.outline_gradient.addColorStop(1,"#aaa");
+	
 	this.rainbow = {
 		diff: 1, // Change in color value
 		chance: 10, // % to switch direction
@@ -58,25 +62,25 @@ function agnaColor(canvas) {
 	this.color_4			= {color: 'rgb(0,0,0)'};
 	this.color_5			= {color: 'rgb(0,0,0)'};
 	
-	this.outline 			= {color: '#403a30', alpha: 1};
-	this.topbar 			= {color: 'rgb(147,117,0)', alpha: 1};
+	this.outline 			= {color: '#803b3c', alpha: 1};
+	this.topbar 			= {color: '#cc5e60', alpha: 1};
 	this.topbar_short 		= {color: '#09f', alpha: 1};
 	this.topbar_short2 		= {color: '#09f', alpha: 1};
-	this.camera_name		= {color: 'rgb(147,117,0)', alpha: 1};
+	this.camera_name		= {color: '#803b3c', alpha: 1};
 	this.sidebar 			= {color: '#050505', alpha: 1};
 	this.sidebar_alt 		= {color: '#000', alpha: 1};
 	this.sidebar_c1 		= {color: '#222', alpha: 1};
 	this.sidebar_c2 		= {color: '#000', alpha: 1};
 	this.players			= {color: '#050505', alpha: 1};
-	this.player_1			= {color: 'rgb(147,117,0)', alpha: 1};
-	this.player_2			= {color: 'rgb(147,117,0)', alpha: 1};
+	this.player_1			= {color: '#803b3c', alpha: 1};
+	this.player_2			= {color: '#803b3c', alpha: 1};
 	this.score				= {};
 	this.score.null			= {color: '#222', alpha: 1};
 	this.score.winner		= {color: this.winner_gradient, alpha: 1};
 	this.score.border 		= {color: 'white', 'width': 2, 'alpha': 0.6}
 	this.player_bar			= '#222';
 	this.player				= {};
-	this.player['default']	= 'rgb(90,90,90)';		// Default
+	this.player['default']	= '#803b3c';		// Default
 	this.player['red']		= 'rgb(168,91,91)';		// Red
 	this.player['green']	= 'rgb(73,147,73)';		// Green
 	this.player['blue']		= 'rgb(91,91,168)';		// Blue

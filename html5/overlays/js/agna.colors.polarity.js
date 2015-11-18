@@ -80,7 +80,7 @@ function agnaColor(canvas) {
 	this.score.border 		= {color: 'white', 'width': 2, 'alpha': 0.6}
 	this.player_bar			= '#222';
 	this.player				= {};
-	this.player['default']	= '#803b3c';		// Default
+	this.player['default']	= '#cc5e60';		// Default
 	this.player['red']		= 'rgb(168,91,91)';		// Red
 	this.player['green']	= 'rgb(73,147,73)';		// Green
 	this.player['blue']		= 'rgb(91,91,168)';		// Blue

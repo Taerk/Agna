@@ -1,3 +1,6 @@
+var silhouette = false;
+var image_transparency = 1;
+
 overlay_image = new Image();
 overlay_image.src = 'polarity-overlay-modern.png';
 
@@ -102,7 +105,7 @@ function drawCharacter(player) {
 		
 		if (prev_src[player] != agna.getImage(player).src) {
 			prev_src[player] = agna.getImage(player).src;
-			get_img_src = 'images/' + agna.getImage(player).src.replace(/\\/g, "/").replace("character_portraits", "character_portraits_min");
+			get_img_src = 'images/' + agna.getImage(player).src.replace(/\\/g, "/");
 			img.src = get_img_src;
 		}
 		
@@ -181,12 +184,14 @@ function drawCharacter(player) {
 		
 		if (player == 2) {
 			agna.ctx.scale(-1, 1);
-		}
-		
-		if (player == 2) {
-			agna.ctx.globalCompositeOperation = 'source-in';
-			agna.ctx.globalAlpha = 0.5;
-			agna.ctx.fillStyle = '#533';
+			
+			if (silhouette) {
+				agna.ctx.globalCompositeOperation = 'source-in';
+			} else {
+				agna.ctx.globalCompositeOperation = 'destination-in';
+			}
+			agna.ctx.globalAlpha = 1;
+			agna.ctx.fillStyle = '#222';
 			agna.ctx.beginPath();
 			agna.ctx.rect(0,270,1280,720);
 			agna.ctx.closePath();
@@ -201,7 +206,7 @@ function drawCharacter(player) {
 			agna.ctx.fill();
 			
 			agna.ctx.globalCompositeOperation = 'destination-out';
-			agna.ctx.globalAlpha = 0.5;
+			agna.ctx.globalAlpha = (1 - image_transparency);
 			agna.ctx.fillStyle = '#533';
 			agna.ctx.beginPath();
 			agna.ctx.rect(0, 270, 1280, 720);

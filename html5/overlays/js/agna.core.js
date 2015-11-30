@@ -9,8 +9,8 @@
 *  []      []    [][][]    []      []  []      []
 * 
 *  Name: AgnaControl
-*  Version: 1.1.5
-*  Updated: 11/9/15
+*  Version: 1.1.6
+*  Updated: 11/30/15
 *  Author: Taerk
 */
 
@@ -27,6 +27,8 @@ function agnaControl(input_canvas) {
 	this.WINDOW_WIDTH 	= 1280;
 	this.WINDOW_HEIGHT 	= 720;
 	this.OUTLINE_IN_BROWSER = true;
+	this.DRAW_INTERVAL = 50;
+	this.LOAD_INTERVAL = 2000;
 	
 	try {
 		this.canvas = input_canvas;
@@ -245,6 +247,17 @@ agnaControl.prototype.drawFrame = function() {
 	drawOverlay();
 }
 
+agnaControl.prototype.changeDrawInterval = function(interval) {
+	if (typeof this.auto_draw != 'undefined') {
+		if (interval != this.DRAW_INTERVAL) {
+			console.log("Changed draw interval to " + interval);
+			this.DRAW_INTERVAL = interval;
+			clearInterval(this.auto_draw);
+			this.auto_draw = setInterval("agna.drawFrame()", interval);
+		}
+	}
+}
+
 /* jQuery to run on page load */
 $(document).ready(function() {
 	if ($('#overlay').length > 0) {
@@ -282,8 +295,8 @@ $(document).ready(function() {
 				if (typeof drawOverlay == 'function') {
 					agna.drawFrame();
 					agna.loadAgna();
-					agna.auto_draw = setInterval("agna.drawFrame()", 50);
-					agna.auto_load = setInterval("agna.loadAgna()", 2000);
+					agna.auto_draw = setInterval("agna.drawFrame()", agna.DRAW_INTERVAL);
+					agna.auto_load = setInterval("agna.loadAgna()", agna.LOAD_INTERVAL);
 					
 					if (navigator.userAgent.toString().toLowerCase().indexOf("firefox")) {
 						$('#overlay').css('border', '1px solid black');

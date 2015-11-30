@@ -12,6 +12,9 @@ var character2 = null;
 var tempimage = new Image();
 
 function drawOverlay() {
+	console.log("Drawn");
+	agna.changeDrawInterval(2000);
+	
 	// Clear screen
 	agna.ctx.clearRect(0, 0, agna.ctx.width,agna.ctx.height);
 	
@@ -128,9 +131,21 @@ function drawCharacter(player) {
 				dim = 500;
 				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 120, 260, dim * imgratio, dim);
 				break;
+			case 'fox-laser':
+				dim = 400;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 15, 280, dim * imgratio, dim);
+				break;
+			case 'fox-taunt':
+				dim = 400;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 80, 280, dim * imgratio, dim);
+				break;
 			case 'ganondorf':
 				dim = 500;
-				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 25, 260, dim * imgratio, dim);
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 40, 260, dim * imgratio, dim);
+				break;
+			case 'iceclimbers':
+				dim = 290;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 50, 300, dim * imgratio, dim);
 				break;
 			case 'jigglypuff':
 				dim = 290;
@@ -141,8 +156,16 @@ function drawCharacter(player) {
 				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 50, 280, dim * imgratio, dim);
 				break;
 			case 'marth':
-				dim = 600;
-				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 90, 280, dim * imgratio, dim);
+				dim = 500;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 70, 260, dim * imgratio, dim);
+				break;
+			case 'marth-fair':
+				dim = 500;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 60, 260, dim * imgratio, dim);
+				break;
+			case 'marth-utilt':
+				dim = 440;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 90, 300, dim * imgratio, dim);
 				break;
 			case 'mewtwo':
 				dim = 450;
@@ -195,13 +218,14 @@ function drawCharacter(player) {
 			agna.ctx.beginPath();
 			agna.ctx.rect(0,270,1280,720);
 			agna.ctx.closePath();
-			agna.ctx.fill();
+			// agna.ctx.fill();
 			
+			// Cut out main screen section
 			agna.ctx.globalCompositeOperation = 'destination-out';
 			agna.ctx.globalAlpha = 1;
 			agna.ctx.fillStyle = '#533';
 			agna.ctx.beginPath();
-			agna.ctx.rect(238.5, 270, 1280 - (238.5 * 2), 720);
+			agna.ctx.rect(238.5, 0, 1280 - (238.5 * 2), 720);
 			agna.ctx.closePath();
 			agna.ctx.fill();
 			

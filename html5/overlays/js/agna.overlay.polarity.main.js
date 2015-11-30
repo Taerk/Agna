@@ -12,7 +12,6 @@ var character2 = null;
 var tempimage = new Image();
 
 function drawOverlay() {
-	console.log("Drawn");
 	agna.changeDrawInterval(2000);
 	
 	// Clear screen

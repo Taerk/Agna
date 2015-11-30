@@ -250,7 +250,7 @@ agnaControl.prototype.drawFrame = function() {
 agnaControl.prototype.changeDrawInterval = function(interval) {
 	if (typeof this.auto_draw != 'undefined') {
 		if (interval != this.DRAW_INTERVAL) {
-			console.log("Changed draw interval to " + interval);
+			// console.log("Changed draw interval to " + interval);
 			this.DRAW_INTERVAL = interval;
 			clearInterval(this.auto_draw);
 			this.auto_draw = setInterval("agna.drawFrame()", interval);

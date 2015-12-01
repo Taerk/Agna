@@ -131,12 +131,16 @@ function drawCharacter(player) {
 				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 120, 260, dim * imgratio, dim);
 				break;
 			case 'fox-laser':
-				dim = 400;
-				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 15, 280, dim * imgratio, dim);
+				dim = 350;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 100, 280, dim * imgratio, dim);
+				break;
+			case 'fox-shine':
+				dim = 340;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 70, 260, dim * imgratio, dim);
 				break;
 			case 'fox-taunt':
-				dim = 400;
-				agna.ctx.drawImage(img, -player_offset + (img.width / -5) - 80, 280, dim * imgratio, dim);
+				dim = 300;
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 10, 280, dim * imgratio, dim);
 				break;
 			case 'ganondorf':
 				dim = 500;

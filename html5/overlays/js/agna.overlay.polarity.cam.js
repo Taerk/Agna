@@ -54,6 +54,11 @@ function drawText() {
 	agna.ctx.textAlign = 'center';
 	// agna.ctx.strokeText(camera_name, agna.ctx.width / 2, agna.ctx.height - 10);
 	// agna.ctx.fillText(camera_name, agna.ctx.width / 2, agna.ctx.height - 10);
+	
+	agna.ctx.fillStyle = '#eee';
+	agna.ctx.font = "2.4em Zekton";
+	agna.ctx.fillText(agna.cleanText(agna.getField(field_left), field_left), 355, 550 + yoffset, 440);
+	agna.ctx.fillText(agna.cleanText(agna.getField(field_right), field_right), 925, 550 + yoffset, 440);
 }
 
 function drawCompass() {
@@ -76,8 +81,8 @@ function drawPlayers() {
 	// Gray
 	agna.ctx.fillStyle = '#666';
 	agna.ctx.beginPath();
-	agna.ctx.moveTo(100, 520 + yoffset);
-	agna.ctx.lineTo(640, 520 + yoffset);
+	agna.ctx.moveTo(100, 510 + yoffset);
+	agna.ctx.lineTo(640, 510 + yoffset);
 	agna.ctx.lineTo(640, 580 + yoffset);
 	agna.ctx.lineTo(120, 580 + yoffset);
 	agna.ctx.closePath();
@@ -86,9 +91,9 @@ function drawPlayers() {
 	// Red
 	agna.ctx.fillStyle = '#a66';
 	agna.ctx.beginPath();
-	agna.ctx.moveTo(640, 520 + yoffset);
-	agna.ctx.lineTo(1160, 520 + yoffset);
-	agna.ctx.lineTo(1140, 580 + yoffset);
+	agna.ctx.moveTo(640, 510 + yoffset);
+	agna.ctx.lineTo(1180, 510 + yoffset);
+	agna.ctx.lineTo(1160, 580 + yoffset);
 	agna.ctx.lineTo(640, 580 + yoffset);
 	agna.ctx.closePath();
 	agna.ctx.fill();
@@ -105,9 +110,9 @@ function drawPlayers() {
 	agna.ctx.globalCompositeOperation = 'destination-in';
 	
 	agna.ctx.beginPath();
-	agna.ctx.moveTo(100, 520 + yoffset);
-	agna.ctx.lineTo(1160, 520 + yoffset);
-	agna.ctx.lineTo(1140, 580 + yoffset);
+	agna.ctx.moveTo(100, 510 + yoffset);
+	agna.ctx.lineTo(1180, 510 + yoffset);
+	agna.ctx.lineTo(1160, 580 + yoffset);
 	agna.ctx.lineTo(120, 580 + yoffset);
 	agna.ctx.closePath();
 	agna.ctx.fill();

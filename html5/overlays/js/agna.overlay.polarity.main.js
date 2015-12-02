@@ -60,8 +60,8 @@ function drawText() {
 	
 	// Top bar
 	agna.ctx.font = "small-caps 1.6em Zekton";
-	agna.ctx.fillText(agna.cleanText(agna.getField('ev'), 'ev'), 450, 28);
-	agna.ctx.fillText(agna.cleanText(agna.getField('ma'), 'ma'), 830, 28);
+	agna.ctx.fillText(agna.cleanText(agna.getField('ev'), 'ev'), 450, 27);
+	agna.ctx.fillText(agna.cleanText(agna.getField('ma'), 'ma'), 830, 27);
 	
 	// Bottom bar
 	agna.ctx.font = "1.3em Zekton";
@@ -188,7 +188,7 @@ function drawCharacter(player) {
 				break;
 			case 'sheik':
 				dim = 500;
-				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 50, 240, dim * imgratio, dim);
+				agna.ctx.drawImage(img, -player_offset + (img.width / -5) + 100, 200, dim * imgratio, dim);
 				break;
 			case 'yoshi':
 				dim = 400;

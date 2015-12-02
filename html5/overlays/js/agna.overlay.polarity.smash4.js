@@ -75,34 +75,38 @@ function drawText() {
 	agna.ctx.fillText(agna.cleanText(agna.getField('ma'), 'ma'), 900, 29);
 	
 	// Bottom bar
-	agna.ctx.font = "0.8em Zekton";
+	agna.ctx.font = "bold 1em Zekton";
 	
 	// Bottom bar -- Time
-	agna.ctx.fillStyle = '#aaa';
+	agna.ctx.fillStyle = '#222';
 	d = new Date();
 	var dd = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substr(2,2);
 	var dt = agna.twelveHour(d.getHours()) + ":" + agna.pad(d.getMinutes(), 2, 0);
 	dt = (d.getHours() >= 12 ? dt += "p" : dt += "a");
-	agna.ctx.fillText(dt, 640, 713);
+	agna.ctx.fillText(dt, 640, 595);
 	
 	agna.ctx.textAlign = 'right';
-	agna.ctx.fillText(dd, 810, 713);
+	agna.ctx.fillText(dd, 1000, 595);
 	
 	agna.ctx.textAlign = 'left';
-	agna.ctx.fillText(agna.cleanText(agna.getField('an'), 'an'), 465, 713);
+	agna.ctx.fillText(agna.cleanText(agna.getField('an'), 'an'), 280, 595);
 	
 	// Commentators
-	agna.ctx.font = "1.3em Zekton";
-	// agna.ctx.fillText(agna.getField('co1'), 145, 535, 155);
-	// agna.ctx.fillText(agna.getField('co2'), 145, 591, 155);
+	agna.ctx.textAlign = 'center';
+	agna.ctx.font = "1.2em Zekton";
+	agna.ctx.fillStyle = '#eee';
+	agna.ctx.fillText(agna.getField('co1'), 520, 624, 180);
+	agna.ctx.fillText(agna.getField('co2'), 550, 651, 180);
 	
-	agna.ctx.font = "bold 0.8em Calibri";
-	agna.ctx.fillStyle = 'black';
+	agna.ctx.font = "bold 0.9em Calibri";
+	agna.ctx.fillStyle = '#222';
 	agna.ctx.globalAlpha = 0.8;
-	// agna.ctx.fillText(agna.cleanText(agna.getField('tw1'), 'tw1'), 145, 553, 155);
-	// agna.ctx.fillText(agna.cleanText(agna.getField('tw2'), 'tw2'), 145, 609, 155);
+	agna.ctx.fillText(agna.cleanText(agna.getField('tw1'), 'tw1'), 770, 622, 140);
+	agna.ctx.fillText(agna.cleanText(agna.getField('tw2'), 'tw2'), 800, 649, 140);
 	
 	agna.ctx.globalAlpha = 1;
+	agna.ctx.textAlign = 'left';
+	
 }
 
 img1 = new Image();

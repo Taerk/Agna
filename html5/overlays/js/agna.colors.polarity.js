@@ -80,10 +80,10 @@ function agnaColor(canvas) {
 	this.score.border 		= {color: 'white', 'width': 2, 'alpha': 0.6}
 	this.player_bar			= '#222';
 	this.player				= {};
-	this.player['default']	= '#cc5e60';		// Default
-	this.player['red']		= 'rgb(168,91,91)';		// Red
-	this.player['green']	= 'rgb(73,147,73)';		// Green
-	this.player['blue']		= 'rgb(91,91,168)';		// Blue
+	this.player['default']	= 'rgb(147,25,28)';		// Default
+	this.player['red']		= 'rgb(147,25,28)';		// Red
+	this.player['green']	= 'rgb(22,147,54)';		// Green
+	this.player['blue']		= 'rgb(22,75,147)';		// Blue
 	this.player['light']	= 'rgb(151,151,151)';	// Light
 	this.player['dark']		= 'rgb(51,51,51)';		// Dark
 	this.player['rainbow']	= 'rgb(' + this.rainbow.r.v + ',' + this.rainbow.g.v + ',' + this.rainbow.b.v + ')'; // Rainbow

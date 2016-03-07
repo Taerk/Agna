@@ -197,28 +197,32 @@ agnaControl.prototype.getImage = function(player) {
 	}
 };
 
-agnaControl.prototype.getPlayerColor = function(player) {
+agnaControl.prototype.getPlayerColor = function(player, alpha) {
 	var get_color = $(this.content).find('agna-panel').find('fields').find('main').find('[name="p'+player+'"]').attr("color");
+	
+	if (typeof alpha == 'undefined') {
+		alpha = 1;
+	}
 
 	switch (true) {
 		case (typeof get_color == "undefined"):
 			if (typeof this.colors.player['default'] != 'undefined') {
-				return this.colors.player['default'];
+				return this.colors.player['default'].replace("rgb(", "rgba(").replace(")", "," + alpha + ")");
 			} else {
-				return '#000';
+				return 'rgba(0,0,0,' + alpha + ')';
 			}
 			break;
 		case (typeof this.colors.player[get_color] != "undefined"):
-			return this.colors.player[get_color];
+			return this.colors.player[get_color].replace("rgb(", "rgba(").replace(")", "," + alpha + ")");
 			break;
 		case (get_color.length == 7 && get_color[0] == "#"):
 			return get_color;
 			break;
 		default:
 			if (typeof this.colors.player['default'] != 'undefined') {
-				return this.colors.player['default'];
+				return this.colors.player['default'].replace("rgb(", "rgba(").replace(")", "," + alpha + ")");
 			} else {
-				return '#000';
+				return 'rgba(0,0,0' + alpha + ')';
 			}
 			break;
 	}

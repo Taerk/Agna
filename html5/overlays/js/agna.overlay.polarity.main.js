@@ -4,8 +4,14 @@ var image_transparency = 1;
 overlay_image = new Image();
 overlay_image.src = 'polarity-overlay-modern.png';
 
-overlay_image2 = new Image();
-overlay_image2.src = 'polarity-overlay-modern-sections.png';
+overlay_image_an = new Image();
+overlay_image_an.src = 'polarity-overlay-modern-an.png';
+
+overlay_image_gr = new Image();
+overlay_image_gr.src = 'polarity-overlay-modern-grid.png';
+
+overlay_image_sec = new Image();
+overlay_image_sec.src = 'polarity-overlay-modern-sections-sub.png';
 
 var character1 = null;
 var character2 = null;
@@ -17,6 +23,34 @@ function drawOverlay() {
 	// Clear screen
 	agna.ctx.clearRect(0, 0, agna.ctx.width,agna.ctx.height);
 	
+	// Color gradients
+	// agna.ctx.drawImage(overlay_image_gr, 0, 0);
+	
+	/* agna.ctx.globalCompositeOperation = 'color';
+	var gradient1 = agna.ctx.createLinearGradient(0, 270, 238.5, agna.ctx.height);
+	gradient1.addColorStop(0, agna.getPlayerColor(1, 0.5));
+	gradient1.addColorStop(0.8, agna.getPlayerColor(1, 0));
+	gradient1.addColorStop(1, agna.getPlayerColor(1, 0));
+	
+	agna.ctx.fillStyle = gradient1;
+	agna.ctx.beginPath();
+	agna.ctx.rect(0,270,238.5,500);
+	agna.ctx.closePath();
+	agna.ctx.fill();
+	
+	var gradient2 = agna.ctx.createLinearGradient(1280, 270, 1280 - 238.5, agna.ctx.height);
+	gradient2.addColorStop(0, agna.getPlayerColor(2, 0.8));
+	gradient2.addColorStop(0.8, agna.getPlayerColor(2, 0));
+	gradient2.addColorStop(1, agna.getPlayerColor(2, 0));
+	
+	agna.ctx.fillStyle = gradient2;
+	agna.ctx.beginPath();
+	agna.ctx.rect(1280, 270, 1280 - 238.5, 500);
+	agna.ctx.closePath();
+	agna.ctx.fill(); */
+	
+	agna.ctx.globalCompositeOperation = 'source-over';
+	agna.ctx.globalAlpha = 1;
 	drawCharacter(1);
 	drawCharacter(2);
 	
@@ -39,7 +73,11 @@ function drawOverlay() {
 	agna.ctx.fill();
 	
 	// Overlay sections
-	agna.ctx.drawImage(overlay_image2, 0, 0);
+	agna.ctx.drawImage(overlay_image_sec, 0, 0);
+	
+	if (agna.cleanText(agna.getField('an'), 'an') != "") {
+		agna.ctx.drawImage(overlay_image_an, 0, 0);
+	}
 	
 	drawText();
 }
@@ -64,18 +102,28 @@ function drawText() {
 	agna.ctx.fillText(agna.cleanText(agna.getField('ma'), 'ma'), 830, 27);
 	
 	// Bottom bar
-	agna.ctx.font = "1.3em Zekton";
 	
 	// Bottom bar -- Time
 	d = new Date();
-	var dd = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substr(2,2);
+	var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	var dd = (months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear());
 	var dt = agna.twelveHour(d.getHours()) + ":" + agna.pad(d.getMinutes(), 2, 0);
 	dt = (d.getHours() >= 12 ? dt += "p" : dt += "a");
-	agna.ctx.fillText(dt, 640, 713);
 	
-	agna.ctx.fillText(dd, 970, 713);
+	if (agna.cleanText(agna.getField('an'), 'an') != "") {
+		agna.ctx.font = "1.3em Zekton";
+		agna.ctx.fillText(agna.cleanText(agna.getField('an'), 'an'), 640, 713);
+	} else {
+		agna.ctx.font = "small-caps bold 1.2em Zekton";
+		agna.ctx.fillStyle = '#aaa';
+		agna.ctx.fillText("p o l a r i t y . g g", 640, 713);
+		agna.ctx.font = "1.3em Zekton";
+		agna.ctx.fillStyle = 'white';
+	}
 	
-	agna.ctx.fillText(agna.cleanText(agna.getField('an'), 'an'), 320, 713);
+	agna.ctx.fillText(dt, 970, 713);
+	
+	agna.ctx.fillText(dd, 320, 713);
 	
 	// Commentators
 	agna.ctx.font = "1.3em Zekton";

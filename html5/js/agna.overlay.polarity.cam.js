@@ -52,7 +52,7 @@ function drawText() {
 		time_text += "a";
 	}
 	
-	agna.ctx.fillStyle = '#444';
+	agna.ctx.fillStyle = '#fff';
 	agna.ctx.strokeStyle = 'black';
 	agna.ctx.font = "bold small-caps 1.2em Zekton";
 	agna.ctx.lineWidth = 3;

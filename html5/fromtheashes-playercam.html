@@ -1,4 +1,4 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -39,32 +39,13 @@
 		
 		<!-- Agna -->
 		<script type="text/javascript" src="js/agna.colors.fromtheashes.js"></script>
-		<script type="text/javascript" src="js/agna.overlay.smackdown.main.js"></script>
 		<script type="text/javascript">
-		// Design changes should go here
-		design.sidebar.position = 0;
-		design.players.adjust_y = 0;
-		design.game.border.left = 8;
-		design.game.border.right = 8;
-		design.game.border = {
-			top: 30,
-			bottom: 26,
-			left: 10,
-			right: 10
-		}
-		design.sidebar.border = {
-			top: 80,
-			bottom: 220,
-			left: 5,
-			right: 5
-		}
-		design.topbar.design = 0;
-		design.topbar.logo = {
-			enabled: true,
-			path: "images/group_logos/from-the-ashes/phoenix.png",
-			scale: 0.8
-		}
+		// Additional Options
+		camera_name = "Player Cam";
+		field_left = 'cam1';
+		field_right = 'cam2';
 		</script>
+		<script type="text/javascript" src="js/agna.overlay.smackdown.cam.js"></script>
 		<script type="text/javascript" src="js/agna.core.js"></script>
 	</head>
 	<body>

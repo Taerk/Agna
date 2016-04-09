@@ -24,96 +24,98 @@ design.set.animations = false;
 design.style = 0; // 0 - Standard; 1 - Classic
 
 design.game = {
-	enabled: true,
+	enabled: true, 
 	border: {
-		top: 35,
-		bottom: 25,
-		left: 20,
+		top: 35, 
+		bottom: 25, 
+		left: 20, 
 		right: 20
-	},
+	}, 
 	_animation: {
-		frame: 0,
-		max: 10,
-		increase: 1,
+		frame: 0, 
+		max: 10, 
+		increase: 1, 
 		scaling: 1
 	}
 };
 design.topbar = {
-	enabled: true,
+	enabled: true, 
 	design: 1, // 0 - Standard; 1 - CFL Smackdown; 2 - CFL Smash
 	logo: {
-		enabled: true,
-		path: "images/logos/cfl-smackdown-werstle/cfl-smackdown-positive-white-190x79.png",
-		scale: 0.8
-	},
+		enabled: true, 
+		path: "images/group_logos/cfl-smackdown-werstle/cfl-smackdown-positive-white-190x79.png", 
+		scale: 0.8, 
+		offset_x: 0, 
+		offset_y: 0
+	}, 
 	_animation: {
 		light: {
-			frame: 0,
-			max: 10,
-			increase: 1,
+			frame: 0, 
+			max: 10, 
+			increase: 1, 
 			scaling: 1
-		},
+		}, 
 		dark: {
-			frame: 0,
-			max: 10,
-			increase: 1,
+			frame: 0, 
+			max: 10, 
+			increase: 1, 
 			scaling: 1
-		},
+		}, 
 		gray: {
-			frame: 0,
-			max: 10,
-			increase: 1,
+			frame: 0, 
+			max: 10, 
+			increase: 1, 
 			scaling: 1
-		},
+		}, 
 		textX: {
-			frame: 0,
-			max: 100,
-			increase: 1,
+			frame: 0, 
+			max: 100, 
+			increase: 1, 
 			scaling: 1
-		},
+		}, 
 		textA: {
-			frame: 0,
-			max: 100,
-			increase: 1,
+			frame: 0, 
+			max: 100, 
+			increase: 1, 
 			scaling: 1
 		}
 	}
 };
 design.players = {
-	adjust_x: 0,
+	adjust_x: 0, 
 	adjust_y: 0
 };
 design.sidebar = {
-	enabled: true,
-	width: 280,
-	padding: 5,
+	enabled: true, 
+	width: 280, 
+	padding: 5, 
 	position: 1, // [BROKEN] -1 - left side; 0 - center; 1 - right side
 	center_in_border: true,
 	border: {
-		top: 5,
-		bottom: 0,
-		left: 0,
+		top: 5, 
+		bottom: 0, 
+		left: 0, 
 		right: 20
-	},
+	}, 
 	commentary: {
-		enabled: true,
-		height: 25,
+		enabled: true, 
+		height: 25, 
 		icon: 0 // 0 - Headset; 1 - Mic
-	},
+	}, 
 	music: {
-		enabled: true,
-		split: '--',
-		_section: 0,
-		_switch_time: 0,
+		enabled: true, 
+		split: '--', 
+		_section: 0, 
+		_switch_time: 0, 
 		_switch_time_max: 0
 	}
 };
 design.ticker = {
-	enabled: true,
+	enabled: true, 
 	height: 25
 };
 design.clock = {
-	enabled: true,
+	enabled: true, 
 	adjust_y: 0
 }
 
@@ -185,8 +187,8 @@ function setAnimations() {
 function drawTop() {
 	if (design.style == 0) {
 		// Tournament bar outline
-		agna.ctx.fillStyle = agna.colors.outline.color;
-		agna.ctx.globalAlpha = agna.colors.outline.alpha;
+		agna.ctx.fillStyle = agna.colors.outline_y.color;
+		agna.ctx.globalAlpha = agna.colors.outline_y.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_x + 40, 0);
 		agna.ctx.lineTo(design._stage_x + 78, 44);
@@ -210,7 +212,7 @@ function drawTop() {
 		agna.ctx.closePath();
 		agna.ctx.fill();
 		
-		agna.ctx.fillStyle = agna.colors.score.null.color;
+		agna.ctx.fillStyle = agna.colors.topbar_in.color;
 		agna.ctx.globalAlpha = agna.colors.topbar.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design.topbar._animation.gray.frame, 0);
@@ -220,7 +222,7 @@ function drawTop() {
 		agna.ctx.closePath();
 		agna.ctx.fill();
 		
-		agna.ctx.fillStyle = agna.colors.score.null.color;
+		agna.ctx.fillStyle = agna.colors.topbar_in.color;
 		agna.ctx.globalAlpha = (agna.colors.topbar.alpha / 2);
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design.topbar._animation.dark.frame, 0);
@@ -251,7 +253,7 @@ function drawTop() {
 		agna.ctx.closePath();
 		agna.ctx.fill();
 		
-		agna.ctx.fillStyle = agna.colors.score.null.color;
+		agna.ctx.fillStyle = agna.colors.topbar_in.color;
 		agna.ctx.globalAlpha = agna.colors.topbar.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_x + design._stage_e - design.topbar._animation.gray.frame, 0);
@@ -261,7 +263,7 @@ function drawTop() {
 		agna.ctx.closePath();
 		agna.ctx.fill();
 		
-		agna.ctx.fillStyle = agna.colors.score.null.color;
+		agna.ctx.fillStyle = agna.colors.topbar_in.color;
 		agna.ctx.globalAlpha = (agna.colors.topbar.alpha / 2);
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_x + design._stage_e - design.topbar._animation.dark.frame, 0);
@@ -313,7 +315,7 @@ function drawTop() {
 		agna.ctx.globalAlpha = agna.colors.outline.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_x + 40, 0);
-		agna.ctx.lineTo(design._stage_x + 80,45);
+		agna.ctx.lineTo(design._stage_x + 80, 45);
 		agna.ctx.lineTo(design._stage_e - 80, 45);
 		agna.ctx.lineTo(design._stage_e - 40, 0);
 		agna.ctx.closePath();
@@ -324,7 +326,7 @@ function drawTop() {
 		agna.ctx.globalAlpha = agna.colors.topbar.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_x + 78, 0);
-		agna.ctx.lineTo(design._stage_x + 110,40);
+		agna.ctx.lineTo(design._stage_x + 110, 40);
 		agna.ctx.lineTo(design._stage_x + (design._stage_w / 2), 40);
 		agna.ctx.lineTo(design._stage_x + (design._stage_w / 2), 0);
 		agna.ctx.closePath();
@@ -335,7 +337,7 @@ function drawTop() {
 		agna.ctx.globalAlpha = agna.colors.topbar.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_e - 78, 0);
-		agna.ctx.lineTo(design._stage_e - 110,40);
+		agna.ctx.lineTo(design._stage_e - 110, 40);
 		agna.ctx.lineTo(design._stage_w / 2, 40);
 		agna.ctx.lineTo(design._stage_w / 2, 0);
 		agna.ctx.closePath();
@@ -355,7 +357,7 @@ function drawTop() {
 			}
 			
 			var d = { // Logo dimensions
-				width: logo.width * design.topbar.logo.scale,
+				width: logo.width * design.topbar.logo.scale, 
 				height: logo.height * design.topbar.logo.scale
 			};
 			
@@ -382,7 +384,7 @@ function drawTop() {
 			}
 			
 			var d = { // Logo dimensions
-				width: logo.width * design.topbar.logo.scale,
+				width: logo.width * design.topbar.logo.scale, 
 				height: logo.height * design.topbar.logo.scale
 			};
 			
@@ -406,11 +408,55 @@ function drawTop() {
 				}
 				
 				var d = { // Logo dimensions
-					width: logo.width * design.topbar.logo.scale,
+					width: logo.width * design.topbar.logo.scale, 
 					height: logo.height * design.topbar.logo.scale
 				};
 				
 				agna.ctx.drawImage(logo, design._stage_c - (d.width / 2), 2, d.width, d.height);
+			}
+			break;
+			
+		case 4:
+			text_adjust = 20;		
+			
+			// Short tournament bar
+			agna.ctx.fillStyle = agna.colors.topbar_short2.color;
+			agna.ctx.globalAlpha = 1;
+			agna.ctx.beginPath();
+			agna.ctx.moveTo(design._stage_c - 140, 0);
+			agna.ctx.lineTo(design._stage_c - 100, 62);
+			agna.ctx.lineTo(design._stage_c + 100, 62);
+			agna.ctx.lineTo(design._stage_c + 140, 0);
+			agna.ctx.closePath();
+			agna.ctx.fill();
+			
+			// Short tournament bar
+			agna.ctx.fillStyle = agna.colors.topbar_short.color;
+			agna.ctx.globalAlpha = 1;
+			agna.ctx.beginPath();
+			agna.ctx.moveTo(design._stage_c - 110, 0);
+			agna.ctx.lineTo(design._stage_c - 84, 42);
+			agna.ctx.lineTo(design._stage_c + 84, 42);
+			agna.ctx.lineTo(design._stage_c + 110, 0);
+			agna.ctx.closePath();
+			agna.ctx.fill();
+			
+			
+			if (design.topbar.logo.enabled == true) {
+				if (typeof logo == 'undefined') {
+					logo = new Image();
+					logo.src = design.topbar.logo.path;
+				}
+				
+				if (typeof logo != 'undefined') {
+					
+					var d = { // Logo dimensions
+						width: logo.width * design.topbar.logo.scale, 
+						height: logo.height * design.topbar.logo.scale
+					};
+					
+					agna.ctx.drawImage(logo, design._stage_c - (d.width / 2) + design.topbar.logo.offset_x, 2 + design.topbar.logo.offset_y, d.width, d.height);
+				}
 			}
 			break;
 			
@@ -440,20 +486,22 @@ function drawTop() {
 			agna.ctx.closePath();
 			agna.ctx.fill();
 			
-			if (design.topbar.logo.enabled) {
+			if (design.topbar.logo.enabled == true) {
 				if (typeof logo == 'undefined') {
 					logo = new Image();
 					logo.src = design.topbar.logo.path;
 				}
 				
-				var d = { // Logo dimensions
-					width: logo.width * design.topbar.logo.scale,
-					height: logo.height * design.topbar.logo.scale
-				};
-				
-				agna.ctx.drawImage(logo, design._stage_c - (d.width / 2), 2, d.width, d.height);
+				if (typeof logo != 'undefined') {
+					
+					var d = { // Logo dimensions
+						width: logo.width * design.topbar.logo.scale, 
+						height: logo.height * design.topbar.logo.scale
+					};
+					
+					agna.ctx.drawImage(logo, design._stage_c - (d.width / 2) + design.topbar.logo.offset_x, 2 + design.topbar.logo.offset_y, d.width, d.height);
+				}
 			}
-			break;
 			break;
 	}
 	
@@ -468,7 +516,7 @@ function drawTop() {
 	}
 	
 	// Text 1
-	agna.ctx.fillStyle = "white";
+	agna.ctx.fillStyle = agna.colors.topbar.textColor;
 	agna.ctx.globalAlpha = agna.text_alpha * design.topbar._animation.textA.frame;
 	if (design.style == 0) {
 		agna.ctx.fillText(agna.getField('ev'), ((design._stage_x + design._stage_c - 10) + 55) / 2 - text_adjust, 30, design._stage_c - 215);
@@ -692,13 +740,13 @@ function drawMusic() {
 function drawCommentator() {	
 	if (typeof commentator_icon == 'undefined') {
 		commentator_icon = new Image();
-		commentator_icon.src = "images/icon_headset.png";
+		commentator_icon.src = "images/overlay_icons/icon_headset.png";
 	}
 	
 	// Commentator
 	if (design.sidebar.center_in_border) {
-		agna.ctx.fillStyle = agna.colors.color_1.color;
-		agna.ctx.globalAlpha = agna.colors.color_1.alpha;
+		agna.ctx.fillStyle = agna.colors.color_5.color;
+		agna.ctx.globalAlpha = agna.colors.color_5.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(design._stage_e, agna.ctx.height - 25);
 		agna.ctx.lineTo(design._stage_e + 25, agna.ctx.height - 25);
@@ -733,7 +781,11 @@ function drawCommentator() {
 		agna.ctx.fillText(agna.cleanText(agna.getField('co1') + ' + ' + agna.getField('co2'), 'co'), design._stage_e + ((design._sidebar_w + 25) / 2), agna.ctx.height - 8, design._sidebar_w - 25 - design.sidebar.padding);
 	}
 	
-	agna.ctx.drawImage(commentator_icon, design._stage_e + 1, agna.ctx.height - 25);
+	try {
+		agna.ctx.drawImage(commentator_icon, design._stage_e + 1, agna.ctx.height - 25);
+	} catch (e) {
+		console.log("Commentator icon '" + commentator_icon.src + "' is not available");
+	}
 	
 	max_y -= 25; // Bumps up the "Music" portion
 }
@@ -749,8 +801,8 @@ function drawPlayer(player) {
 	
 	// Player Bar
 	if (design.style == 0) {
-		agna.ctx.fillStyle = agna.colors.outline.color;
-		agna.ctx.globalAlpha = agna.colors.outline.alpha;
+		agna.ctx.fillStyle = agna.colors.outline_y.color;
+		agna.ctx.globalAlpha = agna.colors.outline_y.alpha;
 		agna.ctx.beginPath();
 		agna.ctx.moveTo(player_offset_x + 15, player_offset_y);
 		agna.ctx.lineTo(player_offset_x + 33, player_offset_y - 30);
@@ -1064,7 +1116,13 @@ function drawPlayer(player) {
 			break;
 		default:
 			agna.ctx.font = "bold 1.6em 'arial'";
-			agna.ctx.fillText(agna.getField('s' + player), player_offset_x + 48, player_offset_y - 5);
+			if (player == 2) {
+				agna.ctx.scale(-1, 1);
+				agna.ctx.fillText(agna.getField('s' + player), design._stage_w - 48, player_offset_y - 5);
+				agna.ctx.scale(-1, 1);
+			} else {
+				agna.ctx.fillText(agna.getField('s' + player), player_offset_x + 48, player_offset_y - 5);
+			}
 			break;
 	}
 	
@@ -1080,7 +1138,7 @@ function drawPlayer(player) {
 	agna.ctx.strokeStyle = "black";
 	agna.ctx.globalAlpha = agna.text_alpha;
 	agna.ctx.textAlign = 'center';
-	agna.ctx.font = "1.8em 'aovel sans'";
+	agna.ctx.font = "1.8em '" + agna.colors.thin_font + "'";
 	
 	if (player == 2) {
 		agna.ctx.fillText(agna.cleanText(agna.getField('p' + player), 'p' + player), design._stage_e - 250 - design.players.adjust_x, player_offset_y - 9);
@@ -1158,7 +1216,7 @@ function drawCharacter(player) {
 function drawBorder() {
 	agna.ctx.fillStyle = agna.colors.sidebar_c1.color;
 	agna.ctx.beginPath();
-	agna.ctx.rect(0,0,agna.ctx.width,agna.ctx.height);
+	agna.ctx.rect(0, 0, agna.ctx.width, agna.ctx.height);
 	agna.ctx.closePath();
 	agna.ctx.fill();
 	
@@ -1175,9 +1233,9 @@ function drawBorder() {
 				agna.ctx.fillStyle = "blue";
 				agna.ctx.beginPath();
 				agna.ctx.rect(
-					design._stage_x,
-					design.game.border.top,
-					design._stage_w,
+					design._stage_x, 
+					design.game.border.top, 
+					design._stage_w, 
 					agna.ctx.height - design.game.border.bottom - design.game.border.top
 				);
 				agna.ctx.closePath();
@@ -1186,7 +1244,19 @@ function drawBorder() {
 			default:
 				agna.ctx.fillStyle = agna.colors.outline.color;
 				agna.ctx.beginPath();
-				agna.ctx.rect(0,0,agna.ctx.width,agna.ctx.height);
+				agna.ctx.rect(0, 0, agna.ctx.width, agna.ctx.height);
+				agna.ctx.closePath();
+				agna.ctx.fill();
+				
+				agna.ctx.fillStyle = agna.colors.outline_y.color;
+				agna.ctx.beginPath();
+				agna.ctx.rect(0, 0, agna.ctx.width, design.game.border.top);
+				agna.ctx.closePath();
+				agna.ctx.fill();
+				
+				agna.ctx.fillStyle = agna.colors.outline_y.color;
+				agna.ctx.beginPath();
+				agna.ctx.rect(0, agna.ctx.height - design.game.border.bottom, agna.ctx.width, design.game.border.bottom);
 				agna.ctx.closePath();
 				agna.ctx.fill();
 				
@@ -1194,9 +1264,9 @@ function drawBorder() {
 				agna.ctx.fillStyle = "blue";
 				agna.ctx.beginPath();
 				agna.ctx.rect(
-					design._stage_x + design.game.border.left,
-					design.game.border.top,
-					design._stage_w - design.game.border.right - design.game.border.left,
+					design._stage_x + design.game.border.left, 
+					design.game.border.top, 
+					design._stage_w - design.game.border.right - design.game.border.left, 
 					agna.ctx.height - design.game.border.bottom - design.game.border.top
 				);
 				agna.ctx.closePath();
@@ -1218,9 +1288,9 @@ function drawBorder() {
 			case 0:
 				agna.ctx.beginPath();
 				agna.ctx.rect(
-					(design.game.border.left / 2),
-					design.sidebar.border.top,
-					(design._sidebar_w - design.game.border.left - design.game.border.right) / 2,
+					(design.game.border.left / 2), 
+					design.sidebar.border.top, 
+					(design._sidebar_w - design.game.border.left - design.game.border.right) / 2, 
 					design._stage_h - design.sidebar.border.top - design.sidebar.border.bottom
 				);
 				agna.ctx.closePath();
@@ -1228,9 +1298,9 @@ function drawBorder() {
 				
 				agna.ctx.beginPath();
 				agna.ctx.rect(
-					design._stage_e + (design.game.border.right / 2),
-					design.sidebar.border.top,
-					(design._sidebar_w - design.game.border.left - design.game.border.right) / 2,
+					design._stage_e + (design.game.border.right / 2), 
+					design.sidebar.border.top, 
+					(design._sidebar_w - design.game.border.left - design.game.border.right) / 2, 
 					design._stage_h - design.sidebar.border.top - design.sidebar.border.bottom
 				);
 				agna.ctx.closePath();
@@ -1254,7 +1324,7 @@ function drawClock() {// TEXT -- Prereq
 	agna.ctx.strokeStyle = "black";
 	agna.ctx.globalAlpha = agna.text_alpha;
 	agna.ctx.textAlign = 'center';
-	agna.ctx.font = "1.8em 'aovel sans'";
+	agna.ctx.font = "1.8em '" + agna.colors.thin_font + "'";
 	
 	// TEXT -- Players
 	/* agna.ctx.strokeStyle = agna.colors.player_2.color;
@@ -1263,7 +1333,7 @@ function drawClock() {// TEXT -- Prereq
 	
 	// TEXT -- Time
 	d = new Date();
-	var dt = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substr(2,2) + " - " + agna.twelveHour(d.getHours()) + ":" + agna.pad(d.getMinutes(), 2, 0);
+	var dt = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear().toString().substr(2, 2) + " - " + agna.twelveHour(d.getHours()) + ":" + agna.pad(d.getMinutes(), 2, 0);
 	if (d.getSeconds() % 2 == 0) {
 		dt = dt.replace(":", " ");
 	}
@@ -1274,16 +1344,16 @@ function drawClock() {// TEXT -- Prereq
 	}
 	
 	agna.ctx.lineWidth = 5;
-	agna.ctx.fillStyle = 'white';
-	agna.ctx.strokeStyle = agna.colors.outline.color;
+	agna.ctx.fillStyle = agna.colors.clock.color;
+	agna.ctx.strokeStyle = agna.colors.outline_y.color;
 	
-	agna.ctx.font = "1.8em Motion Control";
+	agna.ctx.font = "1.8em " + agna.colors.block_font + "";
 	agna.ctx.strokeText(agna.getField('an'), design._stage_c, design._stage_h - 20 + design.clock.adjust_y);
-	agna.ctx.font = "1.2em Motion Control";
+	agna.ctx.font = "1.2em " + agna.colors.block_font + "";
 	agna.ctx.strokeText(dt, design._stage_c, design._stage_h - 5 + design.clock.adjust_y);
-	agna.ctx.font = "1.8em Motion Control";
+	agna.ctx.font = "1.8em " + agna.colors.block_font + "";
 	agna.ctx.fillText(agna.getField('an'), design._stage_c, design._stage_h - 20 + design.clock.adjust_y);
-	agna.ctx.font = "1.2em Motion Control";
+	agna.ctx.font = "1.2em " + agna.colors.block_font + "";
 	agna.ctx.fillText(dt, design._stage_c, design._stage_h - 5 + design.clock.adjust_y);
 }
 
@@ -1299,10 +1369,10 @@ function drawOverlay() {
 
 	max_y = agna.OVERLAY_HEIGHT;
 	
-	agna.ctx.clearRect(0,0,agna.ctx.width,agna.ctx.height)
+	agna.ctx.clearRect(0, 0, agna.ctx.width, agna.ctx.height)
 	agna.ctx.globalAlpha = 1;
 	agna.ctx.textAlign = 'center';
-	agna.ctx.font = "1.8em 'aovel sans'";
+	agna.ctx.font = "1.8em '" + agna.colors.thin_font + "'";
 	
 	// agna.text_alpha = 1;
 	if ((agna.loaded == true) && (agna.text_alpha < 1)) {

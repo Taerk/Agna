@@ -14,6 +14,14 @@
 	font-family: Zekton;
 	src: url('../fonts/zekton/zektonrg.ttf');
 }
+@font-face {
+	font-family: Advanced Sans Serif 7;
+	src: url('../fonts/advanced_sans_serif_7/ADVANCED_SANS_SERIF.ttf');
+}
+@font-face {
+	font-family: Advanced Sans Serif 7 Bold;
+	src: url('../fonts/advanced_sans_serif_7/ADVANCED_SANS_SERIF_7_BOLD.ttf');
+}
 html, body {
 	width: 100%;
 	height: 100%;
